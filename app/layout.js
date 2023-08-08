@@ -15,11 +15,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <body className={`${inter.className} bg-[#fafafa]`}>
-        <AuthProvider>
-          <LoadingPage />
-          <Navbar className="fixed top-0" />
-          {children}
-        </AuthProvider>
+          <AuthProvider>
+            <LoadingPage />
+            <Navbar className="fixed top-0" />
+            {children}
+          </AuthProvider>
       </body>
     </html>
   );
