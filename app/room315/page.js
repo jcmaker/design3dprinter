@@ -107,14 +107,14 @@ function Room315() {
                 {printer.status === "사용가능" ? (
                   <Link
                     className="w-full flex flex-col  justify-end mt-4"
-                    href={`/room311/${printer.serialNumber}`}
+                    href={`/room315/${printer.serialNumber}`}
                   >
                     <Button>이용하기</Button>
                   </Link>
                 ) : printer.status === "사용 중" ? (
                   <Link
                     className="w-full flex flex-col  justify-end mt-4"
-                    href={`/room311/${printer.serialNumber}`}
+                    href={`/room315/${printer.serialNumber}`}
                   >
                     {remainingTime.hours <= 0 && remainingTime.minutes <= 0 ? (
                       <Button>이용하기</Button>

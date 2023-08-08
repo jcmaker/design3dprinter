@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { db } from "fbManager";
 import { useParams, useRouter } from "next/navigation";
 
-function Room311PrinterDetail() {
+function Room315PrinterDetail() {
   const { printerId } = useParams();
 
   const [name, setName] = useState("");
@@ -25,7 +25,7 @@ function Room311PrinterDetail() {
 
       const querySnapshot = await db
         .collection("printers")
-        .where("roomNumber", "==", "311")
+        .where("roomNumber", "==", "315")
         .where("serialNumber", "==", printerId)
         .get();
 
@@ -43,7 +43,7 @@ function Room311PrinterDetail() {
         alert("프린터 사용 정보가 업데이트되었습니다.");
 
         // 리다이렉션
-        router.push("/room311");
+        router.push("/room315");
       } else {
         alert("해당 프린터를 찾을 수 없습니다.");
       }
@@ -111,4 +111,4 @@ function Room311PrinterDetail() {
   );
 }
 
-export default Room311PrinterDetail;
+export default Room315PrinterDetail;
