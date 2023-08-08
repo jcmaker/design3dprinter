@@ -1,113 +1,94 @@
-import Image from 'next/image'
+"use client";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/authProvider";
+import { Pencil } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
+  // AuthContext를 사용하여 로그인한 사용자 정보 가져오기
+  const { user: authUser } = useAuth();
+
+  // 특정 userId를 가진 사용자인지 확인
+  const isSpecificUser = authUser?.uid === "ImNSfMBYvITks5RdrxEt46qgVbc2";
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="flex flex-col h-full">
+      {/* 상단 배너 */}
+      <div className="flex flex-col h-full bg-[#fafafa] pt-[65px]">
+        {/* 상단 배너 */}
+        <header className="bg-[#8EC41D] text-white py-8 text-center">
+          <h1 className="text-3xl font-semibold">디자인공학과</h1>
+          <h1 className="text-3xl font-semibold">3D 프린터 작동 현황</h1>
+        </header>
+
+        <div className="flex items-center justify-center">
+          {/* 사용 설명서 */}
+          <section className="p-8 flex flex-col items-center bg-white shadow-lg rounded-lg md:w-3/5 m-8">
+            <h2 className="text-2xl font-semibold text-red-500 mb-4">
+              주의사항
+            </h2>
+            <ul className="list-disc pl-4 space-y-2">
+              <li>
+                출력 시,{" "}
+                <span className="text-red-500 font-semibold">
+                  레이어 1층이 반드시 깔리는 것을 확인
+                </span>
+                하고 현황을 입력합니다.
+              </li>
+              <li>
+                <span className="text-red-500 font-semibold">
+                  노즐과 히팅베드 모두 뜨겁습니다.
+                </span>{" "}
+                화상에 주의하세요.
+              </li>
+              <li>
+                출력물을 분리할 때는{" "}
+                <span className="text-red-500 font-semibold">
+                  스크래퍼나 끌을 사용하지 마세요.
+                </span>{" "}
+                출력표면에 손상이 갑니다.
+              </li>
+              <li>
+                <span className="text-red-500 font-semibold">
+                  3D 프린터 출력실은 공기가 좋지 않습니다.
+                </span>{" "}
+                출력물 분리 등의 작업은 다른 곳에서 하세요.
+              </li>
+              <li>
+                3D 프린터 출력 후 서포터 등의{" "}
+                <span className="text-red-500 font-semibold">
+                  쓰레기는 반드시 쓰레기통에 버려주시길 바랍니다.
+                </span>
+              </li>
+              <li>
+                3D 프린터가{" "}
+                <span className="text-red-500 font-semibold">
+                  약간이라도 이상하게 작동하면 즉시 작업을 중지하고 교수님께
+                  연락
+                </span>{" "}
+                합니다.
+              </li>
+            </ul>
+          </section>
         </div>
+
+        {/* Footer */}
+        <footer className="bg-gray-300 text-black py-4 text-center md:fixed bottom-0 w-full">
+          <p className="text-lg font-semibold">3D 프린터 관리 교수님</p>
+          <p>권효찬 교수 / 연락처: 010-8020-2620</p>
+        </footer>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      {/* 관리자 버튼 */}
+      <div className="fixed bottom-4 right-4">
+        {isSpecificUser && (
+          <Link href="/admin">
+            <Button className="rounded-full" size="icon">
+              <Pencil className="h-5 w-5" />
+            </Button>
+          </Link>
+        )}
       </div>
     </main>
-  )
+  );
 }
