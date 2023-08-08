@@ -74,6 +74,9 @@ export default function Home() {
 
         {/* Footer */}
         <footer className="bg-gray-300 text-black py-4 text-center md:fixed bottom-0 w-full">
+          <p className="w-full flex justify-start pl-4 text-sm text-center text-gray-500">
+            made by 디공과 조준형
+          </p>
           <p className="text-lg font-semibold">3D 프린터 관리 교수님</p>
           <p>권효찬 교수 / 연락처: 010-8020-2620</p>
         </footer>
