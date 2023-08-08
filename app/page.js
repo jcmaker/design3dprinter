@@ -73,12 +73,14 @@ export default function Home() {
         </div>
 
         {/* Footer */}
-        <footer className="bg-gray-300 text-black py-4 text-center md:fixed bottom-0 w-full">
-          <p className="w-full flex justify-start pl-4 text-sm text-center text-gray-500">
+        <footer className="flex flex-col items-center justify-around bg-gray-300 text-black p-4 pt-0 md:fixed bottom-0 w-full h-[120px] mt-10 ">
+          <p className="md:absolute md:top-4 md:left-2 w-full flex justify-start text-sm text-gray-500 relative top-0 left-0">
             made by 디공과 조준형
           </p>
-          <p className="text-lg font-semibold">3D 프린터 관리 교수님</p>
-          <p>권효찬 교수 / 연락처: 010-8020-2620</p>
+          <div>
+            <p className="text-lg font-semibold">3D 프린터 관리 교수님</p>
+            <p>권효찬 교수 / 연락처: 010-8020-2620</p>
+          </div>
         </footer>
       </div>
 
