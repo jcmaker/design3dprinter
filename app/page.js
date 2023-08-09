@@ -1,18 +1,60 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { useAuth } from "@/context/authProvider";
+import { db } from "fbManager";
 import { Pencil } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [printers, setPrinters] = useState([]);
+
   // AuthContext를 사용하여 로그인한 사용자 정보 가져오기
   const { user: authUser } = useAuth();
 
+  useEffect(() => {
+    // 데이터베이스에서 프린터 정보 가져오기
+    const unsubscribe = db.collection("printers").onSnapshot((snapshot) => {
+      const printerData = [];
+      snapshot.forEach((doc) => {
+        printerData.push({ id: doc.id, ...doc.data() });
+      });
+
+      // 프린터들을 serialNumber로 정렬
+      printerData.sort((a, b) =>
+        parseInt(a.serialNumber) > parseInt(b.serialNumber) ? 1 : -1
+      );
+
+      setPrinters(printerData);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const groupedPrinters = {};
+  printers.forEach((printer) => {
+    if (!groupedPrinters[printer.roomNumber]) {
+      groupedPrinters[printer.roomNumber] = [];
+    }
+    groupedPrinters[printer.roomNumber].push(printer);
+  });
+
   // 특정 userId를 가진 사용자인지 확인
-  const isSpecificUser = authUser?.uid === "ImNSfMBYvITks5RdrxEt46qgVbc2";
+  const isSpecificUser = authUser?.uid === process.env.NEXT_PUBLIC_ADMIN_ID;
 
   return (
-    <main className="flex flex-col h-full">
+    <main className="flex flex-col h-auto overflow-auto">
       {/* 상단 배너 */}
       <div className="flex flex-col h-full bg-[#fafafa] pt-[65px]">
         {/* 상단 배너 */}
@@ -21,7 +63,7 @@ export default function Home() {
           <h1 className="text-3xl font-semibold">3D 프린터 작동 현황</h1>
         </header>
 
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
           {/* 사용 설명서 */}
           <section className="p-8 flex flex-col items-center bg-white shadow-lg rounded-lg md:w-3/5 m-8">
             <h2 className="text-2xl font-semibold text-red-500 mb-4">
@@ -72,6 +114,39 @@ export default function Home() {
           </section>
         </div>
 
+        <div className="w-full flex flex-col items-center justify-center mb-[200px]">
+          <Table className="border w-3/5 h-3/5 m-0 ">
+            <TableCaption className="text-lg font-semibold mb-4">
+              디자인공학과 3D 프린터 작동 현황
+            </TableCaption>
+            <TableBody className="w-full flex flex-col justify-items-stretch">
+              {Object.keys(groupedPrinters).map((roomNumber) => (
+                <TableRow
+                  key={roomNumber}
+                  className="w-full flex flex-col justify-items-stretch"
+                >
+                  {groupedPrinters[roomNumber].map((printer) => (
+                    <TableRow
+                      key={printer.id}
+                      className="flex flex-row w-full justify-items-stretch items-center"
+                    >
+                      <TableCell className="border p-2 flex-1 w-2/5">
+                        {printer.roomNumber} 호
+                      </TableCell>
+                      <TableCell className="border p-2 flex-1 w-full">
+                        {printer.serialNumber} 번
+                      </TableCell>
+                      <TableCell className="border p-2 flex-1 w-1/3">
+                        {printer.status}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+
         {/* Footer */}
         <footer className="flex flex-col items-center justify-around bg-gray-300 text-black p-4 pt-0 md:fixed bottom-0 w-full h-[120px] mt-10 ">
           <p className="md:absolute md:top-4 md:left-2 w-full flex justify-start text-sm text-gray-500 relative top-0 left-0">
@@ -87,7 +162,7 @@ export default function Home() {
       {/* 관리자 버튼 */}
       <div className="fixed bottom-4 right-4">
         {isSpecificUser && (
-          <Link href="/admin">
+          <Link href={`/${process.env.NEXT_PUBLIC_ADMIN_LINK}`}>
             <Button className="rounded-full" size="icon">
               <Pencil className="h-5 w-5" />
             </Button>

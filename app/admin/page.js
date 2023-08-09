@@ -27,7 +27,9 @@ export default function FormBox() {
       });
 
       // 프린터들을 serialNumber로 정렬
-      printerData.sort((a, b) => (a.serialNumber > b.serialNumber ? 1 : -1));
+      printerData.sort((a, b) =>
+        parseInt(a.serialNumber) > parseInt(b.serialNumber) ? 1 : -1
+      );
 
       setPrinters(printerData);
     });
@@ -38,7 +40,7 @@ export default function FormBox() {
   }, []);
 
   // 특정 userId를 가진 사용자인지 확인
-  if (authUser?.uid !== "ImNSfMBYvITks5RdrxEt46qgVbc2") {
+  if (authUser?.uid !== process.env.NEXT_PUBLIC_ADMIN_ID) {
     redirect("/");
   }
 
@@ -69,7 +71,11 @@ export default function FormBox() {
     try {
       await db.collection("printers").doc(printerId).update({
         status: newStatus,
+        userName: "",
+        userStudentId: "",
+        printingTime: 0,
       });
+
       alert("상태가 업데이트되었습니다.");
     } catch (error) {
       alert("상태 업데이트 중 오류가 발생했습니다.");
@@ -85,19 +91,24 @@ export default function FormBox() {
   });
 
   return (
-    <div className="p-4">
+    <div className="p-4 pt-12">
       <div className="mt-8">
         <h2 className="text-xl font-semibold">프린터 목록</h2>
         {Object.keys(groupedPrinters).map((roomNumber) => (
           <div key={roomNumber} className="mt-4">
             <Separator />
-            <h3 className="text-lg font-semibold mb-2">{roomNumber}호</h3>
+            <h3 className="text-3xl font-semibold mb-2">{roomNumber}호</h3>
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {groupedPrinters[roomNumber].map((printer) => (
                 <Card key={printer.id} className="flex flex-col h-full">
                   <CardHeader>
                     <h2 className="text-lg font-medium">
-                      번호: {printer.serialNumber}
+                      번호: {printer.serialNumber} /{" "}
+                      {printer.status === "고장남" ? (
+                        <span className="text-red-600">수리 필요</span>
+                      ) : (
+                        ""
+                      )}
                     </h2>
                     <h3 className="font-medium">
                       방번호: {printer.roomNumber}
@@ -109,7 +120,11 @@ export default function FormBox() {
                       상태: {printer.status} - {printer.userName}
                     </p>
                     <p className="text-gray-500">
-                      사용 시간: {printer.printingTime}
+                      학번: {printer.userStudentId}
+                    </p>
+                    <p className="text-gray-500">
+                      사용 시간: {Math.floor(printer.printingTime / 60)}시간{" "}
+                      {printer.printingTime % 60}분
                     </p>
                     <div className="mt-2">
                       <select
@@ -119,7 +134,7 @@ export default function FormBox() {
                         }
                         className="px-2 py-1 border rounded"
                       >
-                        <option value="시용가능">시용가능</option>
+                        <option value="사용가능">사용가능</option>
                         <option value="고장남">고장남</option>
                         <option value="수리중">수리중</option>
                       </select>

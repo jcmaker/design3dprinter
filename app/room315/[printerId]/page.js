@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { db } from "fbManager";
 import { useParams, useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 function Room315PrinterDetail() {
   const { printerId } = useParams();
@@ -15,6 +16,11 @@ function Room315PrinterDetail() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (name.trim() === "" || studentId.trim() === "") {
+      alert("이름과 학번을 모두 입력해주세요.");
+      return;
+    }
 
     try {
       const totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
@@ -46,6 +52,7 @@ function Room315PrinterDetail() {
         router.push("/room315");
       } else {
         alert("해당 프린터를 찾을 수 없습니다.");
+        router.push("/room315");
       }
     } catch (error) {
       alert("오류가 발생했습니다. 다시 시도해주세요.");
@@ -99,12 +106,12 @@ function Room315PrinterDetail() {
               className="border p-2 rounded w-full"
             />
           </div>
-          <button
+          <Button
             type="submit"
             className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300"
           >
             제출
-          </button>
+          </Button>
         </form>
       </div>
     </div>

@@ -20,7 +20,9 @@ function Room311() {
           printerData.push({ id: doc.id, ...doc.data() });
         });
 
-        printerData.sort((a, b) => (a.serialNumber > b.serialNumber ? 1 : -1));
+        printerData.sort((a, b) =>
+          parseInt(a.serialNumber) > parseInt(b.serialNumber) ? 1 : -1
+        );
         setPrinters(printerData);
       });
 
@@ -47,7 +49,6 @@ function Room311() {
   return (
     <div className="p-4 pt-[80px]">
       <h1 className="font-bold text-xl mb-8">311호 프린터</h1>
-      {/* 프린터 정보 표시 */}
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {printers.map((printer) => {
           const remainingTime =
@@ -71,17 +72,33 @@ function Room311() {
             <Card key={printer.id} className="flex flex-col h-[350px]">
               <CardHeader className="bg-slate-100 w-full h-3/5 flex items-center justify-center">
                 {printer.status === "사용가능" && (
-                  <Progress value={0} className="bg-white" />
+                  <div className="flex flex-col items-center justify-center w-full">
+                    <Progress value={0} className="bg-white" />
+                    <span className="text-slate-500 absolute text-sm">
+                      비어있음
+                    </span>
+                  </div>
                 )}
                 {printer.status === "고장남" && (
-                  <AlertTriangle className="h-14 w-14 fill-rose-500" />
+                  <div className="flex flex-col items-center justify-center w-full">
+                    <Progress value={0} className="bg-white" />
+                    <AlertTriangle className="h-14 w-14 fill-rose-500 absolute" />
+                  </div>
                 )}
                 {printer.status === "수리중" && (
-                  <HardHat className="h-14 w-14 fill-yellow-300" />
+                  <div className="flex flex-col items-center justify-center w-full">
+                    <Progress value={0} className="bg-white" />
+                    <HardHat className="h-14 w-14 fill-yellow-300 absolute" />
+                  </div>
                 )}
 
                 {printer.status === "사용 중" && (
-                  <Progress value={progressValue} className="bg-white" />
+                  <div className="flex flex-col items-center justify-center w-full">
+                    <Progress value={progressValue} className="bg-white" />
+                    <span className="text-black absolute text-sm">
+                      {parseInt(progressValue)} %
+                    </span>
+                  </div>
                 )}
               </CardHeader>
               <CardContent className="flex-grow p-4">
@@ -93,7 +110,8 @@ function Room311() {
                   상태: {printer.status} - {printer.userName}
                 </p>
                 <p className="text-gray-500">
-                  사용 시간: {printer.printingTime}분
+                  사용 시간: {Math.floor(printer.printingTime / 60)}시간{" "}
+                  {printer.printingTime % 60}분
                 </p>
                 {remainingTime ? (
                   <p className="text-gray-500">
@@ -109,7 +127,7 @@ function Room311() {
                     className="w-full flex flex-col  justify-end mt-4"
                     href={`/room311/${printer.serialNumber}`}
                   >
-                    <Button>이용하기</Button>
+                    <Button className="font-bold">이용하기</Button>
                   </Link>
                 ) : printer.status === "사용 중" ? (
                   <Link
@@ -117,7 +135,7 @@ function Room311() {
                     href={`/room311/${printer.serialNumber}`}
                   >
                     {remainingTime.hours <= 0 && remainingTime.minutes <= 0 ? (
-                      <Button>이용하기</Button>
+                      <Button className="font-bold">이용하기</Button>
                     ) : (
                       <Button variant="secondary">수정하기</Button>
                     )}
