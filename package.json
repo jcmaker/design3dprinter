@@ -21,6 +21,7 @@
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "firebase": "^8.10.1",
+    "framer-motion": "^10.15.1",
     "lucide": "^0.263.0",
     "lucide-react": "^0.263.1",
     "next": "13.4.12",
