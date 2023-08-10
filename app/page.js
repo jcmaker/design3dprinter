@@ -6,29 +6,35 @@ import { Pencil } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Script from "next/script";
+
+const Section = ({ children }) => (
+  <motion.div
+    className="min-h-screen flex items-center justify-center"
+    initial={{ opacity: 0, scale: 0.2 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5 }}
+  >
+    {children}
+  </motion.div>
+);
 
 export default function Home() {
   const [printers, setPrinters] = useState([]);
-
-  // AuthContext를 사용하여 로그인한 사용자 정보 가져오기
   const { user: authUser } = useAuth();
+  const isSpecificUser = authUser?.uid === process.env.NEXT_PUBLIC_ADMIN_ID;
 
   useEffect(() => {
-    // 데이터베이스에서 프린터 정보 가져오기
     const unsubscribe = db.collection("printers").onSnapshot((snapshot) => {
       const printerData = [];
       snapshot.forEach((doc) => {
         printerData.push({ id: doc.id, ...doc.data() });
       });
-
-      // 프린터들을 serialNumber로 정렬
       printerData.sort((a, b) =>
         parseInt(a.serialNumber) > parseInt(b.serialNumber) ? 1 : -1
       );
-
       setPrinters(printerData);
     });
-
     return () => {
       unsubscribe();
     };
@@ -42,13 +48,21 @@ export default function Home() {
     groupedPrinters[printer.roomNumber].push(printer);
   });
 
-  const isSpecificUser = authUser?.uid === process.env.NEXT_PUBLIC_ADMIN_ID;
-
   return (
     <div className="flex flex-col">
       {/* 헤더 섹션 */}
       <div className="min-h-screen relative">
+        {/* 3D 오브젝트 배경 */}
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-40">
+          <Script
+            type="module"
+            src="https://unpkg.com/@splinetool/viewer@0.9.414/build/spline-viewer.js"
+          ></Script>
+          <spline-viewer url="https://prod.spline.design/pco26O38GrVvP5K7/scene.splinecode"></spline-viewer>
+        </div>
+
+        {/* 텍스트 배치 */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
           <h1 className="text-white text-xl md:text-4xl font-bold z-10">
             학생들을 위한
           </h1>
@@ -59,13 +73,7 @@ export default function Home() {
       </div>
 
       {/* 주요 내용 섹션 */}
-      <motion.div
-        className="min-h-screen flex items-center justify-center"
-        initial={{ opacity: 0, scale: 0.2 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        {/* 주요 내용 내용 */}
+      <Section>
         <section className="bg-white py-10 px-8 rounded shadow-md mb-8 max-w-2xl">
           <h2 className="text-xl font-semibold mb-4">
             3D 프린터를 통한 창의적인 제작
@@ -76,16 +84,10 @@ export default function Home() {
             다양한 분야에서 활용할 수 있습니다.
           </p>
         </section>
-      </motion.div>
+      </Section>
 
       {/* 이용 안내 섹션 */}
-      <motion.div
-        className="min-h-screen flex flex-col items-center justify-center "
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        {/* 이용 안내 내용 */}
+      <Section>
         <section className="bg-white py-10 px-8 rounded shadow-md mb-8 max-w-2xl">
           <h2 className="text-xl font-semibold mb-4">
             3D 프린터 이용 시 주의 사항
@@ -132,7 +134,7 @@ export default function Home() {
             </li>
           </ul>
         </section>
-      </motion.div>
+      </Section>
 
       {/* CTA 섹션 */}
       <div className=" flex items-center justify-center">

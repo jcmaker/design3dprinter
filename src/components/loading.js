@@ -28,7 +28,7 @@ export function LoadingPage() {
   return (
     <div
       id="loading-page"
-      className="fixed inset-0 flex items-center justify-center bg-white text-white"
+      className="fixed inset-0 flex items-center justify-center bg-white text-whit z-[99]"
     >
       <div>
         {/* 로딩 아이콘 또는 원하는 내용 */}
