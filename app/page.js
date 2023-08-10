@@ -6,23 +6,11 @@ import { Pencil } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Script from "next/script";
-
-const Section = ({ children }) => (
-  <motion.div
-    className="min-h-screen flex items-center justify-center"
-    initial={{ opacity: 0, scale: 0.2 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.5 }}
-  >
-    {children}
-  </motion.div>
-);
+import { Image } from "next/image";
 
 export default function Home() {
   const [printers, setPrinters] = useState([]);
   const { user: authUser } = useAuth();
-  const isSpecificUser = authUser?.uid === process.env.NEXT_PUBLIC_ADMIN_ID;
 
   useEffect(() => {
     const unsubscribe = db.collection("printers").onSnapshot((snapshot) => {
@@ -40,6 +28,7 @@ export default function Home() {
     };
   }, []);
 
+  const isSpecificUser = authUser?.uid === process.env.NEXT_PUBLIC_ADMIN_ID;
   const groupedPrinters = {};
   printers.forEach((printer) => {
     if (!groupedPrinters[printer.roomNumber]) {
@@ -54,11 +43,7 @@ export default function Home() {
       <div className="min-h-screen relative">
         {/* 3D 오브젝트 배경 */}
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-40">
-          <Script
-            type="module"
-            src="https://unpkg.com/@splinetool/viewer@0.9.414/build/spline-viewer.js"
-          ></Script>
-          <spline-viewer url="https://prod.spline.design/pco26O38GrVvP5K7/scene.splinecode"></spline-viewer>
+          {/* 이미지 찾아오기 */}
         </div>
 
         {/* 텍스트 배치 */}
@@ -73,7 +58,12 @@ export default function Home() {
       </div>
 
       {/* 주요 내용 섹션 */}
-      <Section>
+      <motion.div
+        className="min-h-screen flex items-center justify-center"
+        initial={{ opacity: 0, scale: 0.2 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <section className="bg-white py-10 px-8 rounded shadow-md mb-8 max-w-2xl">
           <h2 className="text-xl font-semibold mb-4">
             3D 프린터를 통한 창의적인 제작
@@ -84,10 +74,15 @@ export default function Home() {
             다양한 분야에서 활용할 수 있습니다.
           </p>
         </section>
-      </Section>
+      </motion.div>
 
       {/* 이용 안내 섹션 */}
-      <Section>
+      <motion.div
+        className="min-h-screen flex items-center justify-center"
+        initial={{ opacity: 0, scale: 0.2 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <section className="bg-white py-10 px-8 rounded shadow-md mb-8 max-w-2xl">
           <h2 className="text-xl font-semibold mb-4">
             3D 프린터 이용 시 주의 사항
@@ -134,7 +129,7 @@ export default function Home() {
             </li>
           </ul>
         </section>
-      </Section>
+      </motion.div>
 
       {/* CTA 섹션 */}
       <div className=" flex items-center justify-center">
