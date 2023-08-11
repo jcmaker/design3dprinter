@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { db } from "fbManager";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/authProvider";
 
 function Room315PrinterDetail() {
   const { printerId } = useParams();
@@ -13,6 +14,27 @@ function Room315PrinterDetail() {
   const [minutes, setMinutes] = useState(0);
 
   const router = useRouter();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user?.uid) {
+      // user.uid가 유효한 경우에만 실행
+      const unsubscribe = db
+        .collection("users")
+        .where("userId", "==", user.uid)
+        .onSnapshot((snapshot) => {
+          if (!snapshot.empty) {
+            const userData = snapshot.docs[0].data();
+            setName(userData.name);
+            setStudentId(userData.studentId);
+          }
+        });
+
+      return () => {
+        unsubscribe();
+      };
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

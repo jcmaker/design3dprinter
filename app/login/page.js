@@ -36,9 +36,6 @@ function LoginPage() {
           />
           구글 로그인
         </Button>
-        <p className="text-sm text-center text-gray-500">
-          © 2023 디자인 공학과. All rights reserved.
-        </p>
       </div>
     </div>
   );
