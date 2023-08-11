@@ -30,11 +30,15 @@ export function LoadingPage() {
       id="loading-page"
       className="fixed inset-0 flex items-center justify-center bg-white text-whit z-[99]"
     >
-      <div>
+      <div className="flex flex-col items-center justify-center w-full">
         {/* 로딩 아이콘 또는 원하는 내용 */}
-        <span className="text-black">로딩 중...</span>
-        <div className="mt-4 w-32 h-2">
-          <Progress value={progress} className="h-full bg-white" />
+        <div className="mt-4 w-36 h-4 relative">
+          {" "}
+          {/* relative 클래스 추가 */}
+          <Progress value={progress} className="h-full" />
+          <span className="text-black absolute inset-0 flex items-center justify-center text-sm">
+            로딩 중...
+          </span>
         </div>
       </div>
     </div>
