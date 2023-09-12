@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/authProvider";
 import { redirect } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
+import { Toaster, toast } from "react-hot-toast";
 
 export default function FormBox() {
   const { register, handleSubmit } = useForm();
@@ -59,9 +60,10 @@ export default function FormBox() {
         printingTime: 0,
       });
 
-      alert("데이터가 성공적으로 제출되었습니다.");
+      toast.success("데이터가 성공적으로 제출되었습니다.");
     } catch (error) {
-      alert("데이터 제출 중 오류가 발생했습니다.");
+      // alert("데이터 제출 중 오류가 발생했습니다.");
+      toast.dismiss("데이터 제출 중 오류가 발생했습니다.");
     } finally {
       setSubmitting(false);
     }
@@ -76,9 +78,10 @@ export default function FormBox() {
         printingTime: 0,
       });
 
-      alert("상태가 업데이트되었습니다.");
+      toast.success("상태가 업데이트되었습니다.");
     } catch (error) {
-      alert("상태 업데이트 중 오류가 발생했습니다.");
+      // alert("상태 업데이트 중 오류가 발생했습니다.");
+      toast.dismiss("상태 업데이트 중 오류가 발생했습니다.");
     }
   };
 
@@ -92,6 +95,7 @@ export default function FormBox() {
 
   return (
     <div className="p-4 pt-12">
+      <Toaster />
       <div className="mt-8">
         <h2 className="text-xl font-semibold">프린터 목록</h2>
         {Object.keys(groupedPrinters).map((roomNumber) => (

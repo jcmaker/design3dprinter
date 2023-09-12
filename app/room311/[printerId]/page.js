@@ -4,6 +4,7 @@ import { db } from "fbManager";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/authProvider";
+import { Toaster, toast } from "react-hot-toast";
 
 function Room311PrinterDetail() {
   const { printerId } = useParams();
@@ -40,7 +41,8 @@ function Room311PrinterDetail() {
     e.preventDefault();
 
     if (name.trim() === "" || studentId.trim() === "") {
-      alert("이름과 학번을 모두 입력해주세요.");
+      // alert("이름과 학번을 모두 입력해주세요.");
+      toast.error("이름과 학번을 모두 입력해주세요.");
       return;
     }
 
@@ -68,16 +70,19 @@ function Room311PrinterDetail() {
           status: "사용 중",
         });
 
-        alert("프린터 사용 정보가 업데이트되었습니다.");
+        // alert("프린터 사용 정보가 업데이트되었습니다.");
+        toast.success("프린터 사용 정보가 업데이트되었습니다.");
 
         // 리다이렉션
         router.push("/room311");
       } else {
-        alert("해당 프린터를 찾을 수 없습니다.");
+        // alert("해당 프린터를 찾을 수 없습니다.");
+        toast.dismiss("해당 프린터를 찾을 수 없습니다.");
         router.push("/room311");
       }
     } catch (error) {
-      alert("오류가 발생했습니다. 다시 시도해주세요.");
+      // alert("오류가 발생했습니다. 다시 시도해주세요.");
+      toast.error("오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
@@ -90,6 +95,7 @@ function Room311PrinterDetail() {
 
   return (
     <div className="p-4 pt-10">
+      <Toaster />
       <h1 className="font-bold text-xl mb-4">프린터 사용 정보 입력</h1>
       <div className="max-w-lg mx-auto bg-white p-4 shadow-md rounded">
         <h2 className="text-lg font-semibold mb-2">{printerId} 번 프린터</h2>
@@ -135,7 +141,6 @@ function Room311PrinterDetail() {
             제출
           </Button>
         </form>
-        {/* 로그인 시 체크박스 표시 */}
       </div>
     </div>
   );
