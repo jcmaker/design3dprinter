@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/authProvider";
 import { Toaster, toast } from "react-hot-toast";
+import { AlertTriangle } from "lucide-react";
 
 function Room311PrinterDetail() {
   const { printerId } = useParams();
@@ -13,6 +14,8 @@ function Room311PrinterDetail() {
   const [studentId, setStudentId] = useState("");
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
+
+  const [printers, setPrinters] = useState([]);
 
   const router = useRouter();
   const { user } = useAuth();
@@ -36,6 +39,24 @@ function Room311PrinterDetail() {
       };
     }
   }, [user]);
+
+  useEffect(() => {
+    const unsubscribe = db
+      .collection("printers")
+      .where("roomNumber", "==", "311")
+      .where("serialNumber", "==", printerId)
+      .onSnapshot((snapshot) => {
+        const printerData = [];
+        snapshot.forEach((doc) => {
+          printerData.push({ id: doc.id, ...doc.data() });
+        });
+        setPrinters(printerData);
+      });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [printerId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,54 +115,89 @@ function Room311PrinterDetail() {
   };
 
   return (
-    <div className="p-4 pt-10">
+    <div>
       <Toaster />
-      <h1 className="font-bold text-xl mb-4">프린터 사용 정보 입력</h1>
-      <div className="max-w-lg mx-auto bg-white p-4 shadow-md rounded">
-        <h2 className="text-lg font-semibold mb-2">{printerId} 번 프린터</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="이름"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="border p-2 rounded w-full"
-          />
-          <input
-            type="text"
-            placeholder="학번"
-            value={studentId}
-            onChange={(e) => setStudentId(e.target.value)}
-            className="border p-2 rounded w-full"
-          />
-          <div className="flex">
-            <p className="flex flex-grow justify-start">시간</p>
-            <p className="flex flex-grow justify-start">분</p>
+      {printers[0]?.status === "사용가능" ||
+      printers[0]?.status === "사용 중" ? (
+        <>
+          <h1 className="font-bold text-xl mb-4 mt-10">
+            프린터 사용 정보 입력
+          </h1>
+          <div className="max-w-lg mx-auto bg-white p-4 shadow-md rounded">
+            <h2 className="text-lg font-semibold mb-2">
+              {printerId} 번 프린터
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="text"
+                placeholder="이름"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="border p-2 rounded w-full"
+                disabled={
+                  printers[0]?.status === "고장남" ||
+                  printers[0]?.status === "수리중"
+                }
+              />
+              <input
+                type="text"
+                placeholder="학번"
+                value={studentId}
+                onChange={(e) => setStudentId(e.target.value)}
+                className="border p-2 rounded w-full"
+                disabled={
+                  printers[0]?.status === "고장남" ||
+                  printers[0]?.status === "수리중"
+                }
+              />
+              <div className="flex">
+                <p className="flex flex-grow justify-start">시간</p>
+                <p className="flex flex-grow justify-start">분</p>
+              </div>
+              <div className="flex">
+                <input
+                  type="number"
+                  placeholder="시간"
+                  value={hours}
+                  onChange={(e) => setHours(e.target.value)}
+                  className="border p-2 rounded w-full mr-2"
+                  disabled={
+                    printers[0]?.status === "고장남" ||
+                    printers[0]?.status === "수리중"
+                  }
+                />
+                <input
+                  type="number"
+                  placeholder="분"
+                  value={minutes}
+                  onChange={(e) => setMinutes(e.target.value)}
+                  className="border p-2 rounded w-full"
+                  disabled={
+                    printers[0]?.status === "고장남" ||
+                    printers[0]?.status === "수리중"
+                  }
+                />
+              </div>
+              <Button
+                type="submit"
+                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300"
+                disabled={
+                  printers[0]?.status === "고장남" ||
+                  printers[0]?.status === "수리중"
+                }
+              >
+                제출
+              </Button>
+            </form>
           </div>
-          <div className="flex">
-            <input
-              type="number"
-              placeholder="시간"
-              value={hours}
-              onChange={(e) => setHours(e.target.value)}
-              className="border p-2 rounded w-full mr-2"
-            />
-            <input
-              type="number"
-              placeholder="분"
-              value={minutes}
-              onChange={(e) => setMinutes(e.target.value)}
-              className="border p-2 rounded w-full"
-            />
-          </div>
-          <Button
-            type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300"
-          >
-            제출
-          </Button>
-        </form>
-      </div>
+        </>
+      ) : (
+        <div className="absolute w-full h-full flex flex-col items-center justify-center">
+          <AlertTriangle className="h-14 w-14 fill-rose-500 " />
+          <h2 className="text-5xl text-black font-bold">이용 불가</h2>
+          <span className="mt-8">{printers[0]?.status}</span>
+        </div>
+      )}
     </div>
   );
 }
