@@ -6,12 +6,15 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/authProvider";
 import { Toaster, toast } from "react-hot-toast";
 import { AlertTriangle } from "lucide-react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import Image from "next/image";
 
 function Room315PrinterDetail() {
   const { printerId } = useParams();
 
   const [name, setName] = useState("");
   const [studentId, setStudentId] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
 
@@ -28,9 +31,10 @@ function Room315PrinterDetail() {
         .where("userId", "==", user.uid)
         .onSnapshot((snapshot) => {
           if (!snapshot.empty) {
-            const userData = snapshot.docs[0].data();
-            setName(userData.name);
-            setStudentId(userData.studentId);
+            const userData = snapshot.docs[0]?.data();
+            setName(userData?.name);
+            setStudentId(userData?.studentId);
+            setPhoneNumber(userData?.phoneNumber);
           }
         });
 
@@ -80,10 +84,11 @@ function Room315PrinterDetail() {
         .get();
 
       if (!querySnapshot.empty) {
-        const docRef = querySnapshot.docs[0].ref;
+        const docRef = querySnapshot.docs[0]?.ref;
         await docRef.update({
           userName: name,
           userStudentId: studentId,
+          phoneNumber: phoneNumber,
           printingTime: totalMinutes,
           submissionTime: submissionTime, // 제출 시간을 분 단위로 저장
           endTime: endTime, // 작동 종료 시간 저장
@@ -114,15 +119,35 @@ function Room315PrinterDetail() {
   };
 
   return (
-    <div>
+    <div className="lg:flex">
       <Toaster />
       {printers[0]?.status === "사용가능" ||
       printers[0]?.status === "사용 중" ? (
         <>
-          <h1 className="font-bold text-xl mb-4 mt-10">
-            프린터 사용 정보 입력
-          </h1>
-          <div className="max-w-lg mx-auto bg-white p-4 shadow-md rounded">
+          <Card
+            key={printers[0]?.id}
+            className="flex flex-col h-[300px] max-w-lg sm:mx-auto lg:w-1/4 mb-11 mt-10 lg:mt-40"
+          >
+            <CardHeader className="bg-white w-full h-3/5 flex items-center justify-center">
+              <Image
+                src="/3d-cube.gif"
+                alt=""
+                width={100}
+                height={100}
+                className="aspect-square"
+              />
+            </CardHeader>
+            <CardContent className="flex-grow p-4">
+              <h2 className="text-lg font-medium">
+                번호: {printers[0]?.serialNumber}
+              </h2>
+              <h3 className="">{printers[0]?.company}</h3>
+              <p className="text-gray-500">
+                상태: {printers[0]?.status} - {printers[0]?.userName}
+              </p>
+            </CardContent>
+          </Card>
+          <div className="max-w-lg mx-auto bg-white p-4 shadow-md rounded lg:mt-20">
             <h2 className="text-lg font-semibold mb-2">
               {printerId} 번 프린터
             </h2>
@@ -179,7 +204,7 @@ function Room315PrinterDetail() {
               </div>
               <Button
                 type="submit"
-                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300"
+                className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300"
                 disabled={
                   printers[0]?.status === "고장남" ||
                   printers[0]?.status === "수리중"

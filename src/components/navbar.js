@@ -17,10 +17,12 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const Navbar = () => {
   const [name, setName] = useState("");
   const [studentId, setStudentId] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const { user } = useAuth();
 
   const handleSave = async () => {
@@ -35,11 +37,12 @@ const Navbar = () => {
         userId: user.uid,
         name: name,
         studentId: studentId,
+        phoneNumber: phoneNumber,
       });
 
-      alert("프로필 정보가 저장되었습니다.");
+      toast.success("프로필 정보 저장 완료!");
     } catch (error) {
-      alert("오류가 발생했습니다. 다시 시도해주세요.");
+      toast.error("오류 발행. 다시 시도해주세요.");
     }
   };
 
@@ -55,11 +58,12 @@ const Navbar = () => {
         <div className="ml-auto flex items-center space-x-4">
           {user ? (
             <>
+              <Toaster />
               <Dialog>
                 <DialogTrigger asChild>
                   <Avatar>
                     <AvatarImage src={user.photoURL} />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback>N</AvatarFallback>
                   </Avatar>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
@@ -84,7 +88,7 @@ const Navbar = () => {
                       />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
-                      <Label htmlFor="username" className="text-right">
+                      <Label htmlFor="studentId" className="text-right">
                         학번
                       </Label>
                       <Input
@@ -92,6 +96,18 @@ const Navbar = () => {
                         placeholder="학번"
                         value={studentId}
                         onChange={(e) => setStudentId(e.target.value)}
+                        className="col-span-3"
+                      />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="phoneNumber" className="text-right">
+                        전화번호
+                      </Label>
+                      <Input
+                        id="phoneNumber"
+                        placeholder="전화번호"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
                         className="col-span-3"
                       />
                     </div>

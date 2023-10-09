@@ -115,20 +115,23 @@ export default function FormBox() {
                       )}
                     </h2>
                     <h3 className="font-medium">
-                      방번호: {printer.roomNumber}
+                      방번호: {printer?.roomNumber}
                     </h3>
-                    <h3 className="">{printer.company}</h3>
+                    <h3 className="">{printer?.company}</h3>
                   </CardHeader>
                   <CardContent className="flex-grow">
                     <p className="text-gray-500">
-                      상태: {printer.status} - {printer.userName}
+                      상태: {printer?.status} - {printer?.userName}
                     </p>
                     <p className="text-gray-500">
-                      학번: {printer.userStudentId}
+                      학번: {printer?.userStudentId}
+                    </p>
+                    <p className="text-gray-500">
+                      전화번호: {printer?.phoneNumber}
                     </p>
                     <p className="text-gray-500">
                       사용 시간: {Math.floor(printer.printingTime / 60)}시간{" "}
-                      {printer.printingTime % 60}분
+                      {printer?.printingTime % 60}분
                     </p>
                     <div className="mt-2">
                       <select
