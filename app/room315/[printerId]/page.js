@@ -147,7 +147,7 @@ function Room315PrinterDetail() {
               </p>
             </CardContent>
           </Card>
-          <div className="max-w-lg mx-auto bg-white p-4 shadow-md rounded lg:mt-20">
+          <div className="max-w-lg mx-auto h-full bg-white p-4 shadow-md rounded lg:mt-20">
             <h2 className="text-lg font-semibold mb-2">
               {printerId} 번 프린터
             </h2>
@@ -168,6 +168,17 @@ function Room315PrinterDetail() {
                 placeholder="학번"
                 value={studentId}
                 onChange={(e) => setStudentId(e.target.value)}
+                className="border p-2 rounded w-full"
+                disabled={
+                  printers[0]?.status === "고장남" ||
+                  printers[0]?.status === "수리중"
+                }
+              />
+              <input
+                type="text"
+                placeholder="전화번호"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
                 className="border p-2 rounded w-full"
                 disabled={
                   printers[0]?.status === "고장남" ||

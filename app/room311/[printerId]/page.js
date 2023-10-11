@@ -147,7 +147,7 @@ function Room311PrinterDetail() {
               <p className="text-gray-500">사용: {printers[0]?.userName}</p>
             </CardContent>
           </Card>
-          <div className="max-w-lg mx-auto bg-white p-4 shadow-md rounded lg:mt-20">
+          <div className="max-w-lg mx-auto h-full bg-white p-4 shadow-md rounded lg:mt-20">
             <h2 className="text-lg font-semibold mb-2">
               {printerId} 번 프린터
             </h2>
