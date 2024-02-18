@@ -62,6 +62,16 @@ function Room315PrinterDetail() {
     };
   }, [printerId]);
 
+  const handleNameChange = (e) => {
+    const { value } = e.target;
+    const regex = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/;
+    if (value === "" || regex.test(value)) {
+      setName(value);
+    } else {
+      toast.error("이름은 영문자, 한글, 공백만 입력 가능합니다.");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -128,14 +138,7 @@ function Room315PrinterDetail() {
             key={printers[0]?.id}
             className="flex flex-col h-[300px] max-w-lg sm:mx-auto lg:w-1/4 mb-11 mt-10 lg:mt-40"
           >
-            <CardHeader className="bg-white w-full h-3/5 flex items-center justify-center">
-              {/* <Image
-                src="/3d-cube.gif"
-                alt=""
-                width={100}
-                height={100}
-                className="aspect-square"
-              /> */}
+            <CardHeader className="bg-white w-full h-3/5 flex flex-col items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="-500 -500 1000 1000"
@@ -248,7 +251,8 @@ function Room315PrinterDetail() {
                 type="text"
                 placeholder="이름"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                // onChange={(e) => setName(e.target.value)}
+                onChange={handleNameChange}
                 className="border p-2 rounded w-full"
                 disabled={
                   printers[0]?.status === "고장남" ||

@@ -28,22 +28,21 @@ export function LoadingPage() {
   return (
     <div
       id="loading-page"
-      className="fixed inset-0 flex items-center justify-center bg-white text-whit z-[99]"
+      className="fixed inset-0 flex items-center justify-center bg-white text-white z-[99]"
     >
       <div className="flex flex-col items-center justify-center w-full">
         {/* 로딩 아이콘 또는 원하는 내용 */}
-        {/* <div className="mt-4 w-36 h-4 relative">
+        <div className="mt-4 w-36 h-4 relative">
           <Progress value={progress} className="h-full" />
-          <span className="text-black absolute inset-0 flex items-center justify-center text-sm">
+          <span className="text-secondary absolute inset-0 flex items-center justify-center text-sm">
             로딩 중...
           </span>
-        </div> */}
-        <svg
+        </div>
+        {/* <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="-500 -500 1000 1000"
           className="w-full max-w-lg"
         >
-          {/* Add your Tailwind styles for the SVG elements */}
           <style>
             {`
             .filament {
@@ -59,7 +58,6 @@ export function LoadingPage() {
           `}
           </style>
 
-          {/* Your SVG content */}
           <defs>
             <pattern
               id="hexagon"
@@ -80,7 +78,6 @@ export function LoadingPage() {
             </pattern>
           </defs>
           <g className="filament">
-            {/* Filled range is from radius 80 to 210 */}
             <circle r="145" fill="none" strokeWidth="130">
               <animate
                 attributeName="r"
@@ -129,8 +126,7 @@ export function LoadingPage() {
               repeatCount="indefinite"
             />
           </g>
-        </svg>
-        로딩중 . . .
+        </svg> */}
       </div>
     </div>
   );

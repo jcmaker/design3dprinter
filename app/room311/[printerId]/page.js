@@ -62,6 +62,16 @@ function Room311PrinterDetail() {
     };
   }, [printerId]);
 
+  const handleNameChange = (e) => {
+    const { value } = e.target;
+    const regex = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/;
+    if (value === "" || regex.test(value)) {
+      setName(value);
+    } else {
+      toast.error("이름은 영문자, 한글, 공백만 입력 가능합니다.");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -248,7 +258,7 @@ function Room311PrinterDetail() {
                 type="text"
                 placeholder="이름"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={handleNameChange}
                 className="border p-2 rounded w-full"
                 disabled={
                   printers[0]?.status === "고장남" ||

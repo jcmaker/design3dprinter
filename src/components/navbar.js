@@ -25,6 +25,15 @@ const Navbar = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const { user } = useAuth();
 
+  const handleNameChange = (e) => {
+    const { value } = e.target;
+    const regex = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/;
+    if (value === "" || regex.test(value)) {
+      setName(value);
+    } else {
+      toast.error("이름은 영문자, 한글, 공백만 입력 가능합니다.");
+    }
+  };
   const handleSave = async () => {
     if (name.trim() === "" || studentId.trim() === "") {
       alert("이름과 학번을 모두 입력해주세요.");
@@ -83,7 +92,7 @@ const Navbar = () => {
                         id="name"
                         placeholder="홍길동"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={handleNameChange}
                         className="col-span-3"
                       />
                     </div>
