@@ -18,6 +18,7 @@ import { Label } from "./ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { ThemeToggle } from "./ThemeToggler";
 
 const Navbar = () => {
   const [name, setName] = useState("");
@@ -56,7 +57,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="border-b fixed top-0 w-full bg-white z-50">
+    <div className="border-b fixed top-0 w-full bg-white dark:bg-slate-900 z-50">
       <div className="flex h-16 items-center px-4">
         <Link href="/">
           <h1 className="font-bold text-xl text-[#F5902B] cursor-pointer">
@@ -128,6 +129,7 @@ const Navbar = () => {
                   </DialogFooter>
                 </DialogContent>
               </Dialog>
+              <ThemeToggle />
               <Button
                 className="cursor-pointer"
                 onClick={() => {
@@ -154,26 +156,29 @@ const Navbar = () => {
               </Button>
             </>
           ) : (
-            <Link href="/login">
-              <Button className="flex-col items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-log-in"
-                >
-                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                  <polyline points="10 17 15 12 10 7" />
-                  <line x1="15" x2="3" y1="12" y2="12" />
-                </svg>
-              </Button>
-            </Link>
+            <>
+              <ThemeToggle />
+              <Link href="/login">
+                <Button className="flex-col items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-log-in"
+                  >
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                    <polyline points="10 17 15 12 10 7" />
+                    <line x1="15" x2="3" y1="12" y2="12" />
+                  </svg>
+                </Button>
+              </Link>
+            </>
           )}
         </div>
       </div>

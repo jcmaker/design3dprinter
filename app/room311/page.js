@@ -70,7 +70,7 @@ function Room311() {
 
           return (
             <Card key={printer.id} className="flex flex-col h-[350px]">
-              <CardHeader className="bg-slate-100 w-full h-3/5 flex items-center justify-center">
+              <CardHeader className="bg-slate-100 dark:bg-slate-600 w-full h-3/5 flex items-center justify-center rounded-t-md">
                 {printer.status === "사용가능" && (
                   <div className="flex flex-col items-center justify-center w-full">
                     <Progress value={0} className="bg-white" />
@@ -82,13 +82,19 @@ function Room311() {
                 {printer.status === "고장남" && (
                   <div className="flex flex-col items-center justify-center w-full">
                     <Progress value={0} className="bg-white" />
-                    <AlertTriangle className="h-14 w-14 fill-rose-500 absolute" />
+                    <AlertTriangle
+                      className="h-14 w-14 fill-rose-500 absolute"
+                      stroke="black"
+                    />
                   </div>
                 )}
                 {printer.status === "수리중" && (
                   <div className="flex flex-col items-center justify-center w-full">
                     <Progress value={0} className="bg-white" />
-                    <HardHat className="h-14 w-14 fill-yellow-300 absolute" />
+                    <HardHat
+                      className="h-14 w-14 fill-yellow-300 absolute"
+                      stroke="black"
+                    />
                   </div>
                 )}
 

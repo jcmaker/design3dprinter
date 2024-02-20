@@ -71,7 +71,7 @@ function Room315() {
 
           return (
             <Card key={printer.id} className="flex flex-col h-[350px]">
-              <CardHeader className="bg-slate-100 w-full h-3/5 flex items-center justify-center">
+              <CardHeader className="bg-slate-100 dark:bg-slate-600 w-full h-3/5 flex items-center justify-center rounded-t-md">
                 {printer.status === "사용가능" && (
                   <div className="flex flex-col items-center justify-center w-full">
                     <Progress value={0} className="bg-white" />
@@ -83,13 +83,19 @@ function Room315() {
                 {printer.status === "고장남" && (
                   <div className="flex flex-col items-center justify-center w-full">
                     <Progress value={0} className="bg-white" />
-                    <AlertTriangle className="h-14 w-14 fill-rose-500 absolute" />
+                    <AlertTriangle
+                      className="h-14 w-14 fill-rose-500 absolute"
+                      stroke="black"
+                    />
                   </div>
                 )}
                 {printer.status === "수리중" && (
                   <div className="flex flex-col items-center justify-center w-full">
                     <Progress value={0} className="bg-white" />
-                    <HardHat className="h-14 w-14 fill-yellow-300 absolute" />
+                    <HardHat
+                      className="h-14 w-14 fill-yellow-300 absolute"
+                      stroke="black"
+                    />
                   </div>
                 )}
 
@@ -107,15 +113,15 @@ function Room315() {
                   번호: {printer.serialNumber}
                 </h2>
                 <h3 className="">{printer.company}</h3>
-                <p className="text-gray-500">
+                <p className="text-gray-500 dark:text-slate-400">
                   상태: {printer.status} - {printer.userName}
                 </p>
-                <p className="text-gray-500">
+                <p className="text-gray-500 dark:text-slate-400">
                   사용 시간: {Math.floor(printer.printingTime / 60)}시간{" "}
                   {printer.printingTime % 60}분
                 </p>
                 {remainingTime ? (
-                  <p className="text-gray-500">
+                  <p className="text-gray-500 dark:text-slate-400">
                     남은 시간: {remainingTime?.hours}시간{" "}
                     {remainingTime?.minutes}분
                   </p>
@@ -128,7 +134,9 @@ function Room315() {
                     className="w-full flex flex-col  justify-end mt-4"
                     href={`/room315/${printer.serialNumber}`}
                   >
-                    <Button className="font-bold">이용하기</Button>
+                    <Button className="font-bold dark:text-white">
+                      이용하기
+                    </Button>
                   </Link>
                 ) : printer.status === "사용 중" ? (
                   <Link
@@ -136,9 +144,13 @@ function Room315() {
                     href={`/room315/${printer.serialNumber}`}
                   >
                     {remainingTime.hours <= 0 && remainingTime.minutes <= 0 ? (
-                      <Button className="font-bold">이용하기</Button>
+                      <Button className="font-bold dark:text-white">
+                        이용하기
+                      </Button>
                     ) : (
-                      <Button variant="secondary">수정하기</Button>
+                      <Button variant="secondary dark:text-white">
+                        수정하기
+                      </Button>
                     )}
                   </Link>
                 ) : (

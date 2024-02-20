@@ -20,7 +20,9 @@ function LoginPage() {
   return (
     <div className="absolute z-50 top-0 w-screen flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-10">
-        <h2 className="text-3xl font-bold text-center mb-4">디자인 공학과</h2>
+        <h2 className="text-black text-3xl font-bold text-center mb-4">
+          디자인 공학과
+        </h2>
         <p className="text-gray-600 text-center mb-8">3D 프린터 사이트</p>
         <Button
           className="bg-slate-100 text-black w-full py-2 mb-4"

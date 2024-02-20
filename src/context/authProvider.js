@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const refreshToken = setInterval(async () => {
-      const { currentUser } = auth.currentUser;
+      const currentUser = auth.currentUser?.currentUser;
       if (currentUser) await currentUser.getIdToken(true);
     }, 10 * 60 * 1000);
 

@@ -140,7 +140,7 @@ function Room311PrinterDetail() {
             key={printers[0]?.id}
             className="flex flex-col h-[300px] max-w-lg sm:mx-auto lg:w-1/4 mb-11 mt-10 lg:mt-40"
           >
-            <CardHeader className="bg-white w-full h-3/5 flex items-center justify-center">
+            <CardHeader className="bg-white dark:bg-slate-300 rounded-t-md w-full h-3/5 flex items-center justify-center">
               {/* <Image
                 src="/3d-cube.gif"
                 alt=""
@@ -246,10 +246,12 @@ function Room311PrinterDetail() {
                 번호: {printers[0]?.serialNumber}
               </h2>
               <h3 className="">{printers[0]?.company}</h3>
-              <p className="text-gray-500">사용: {printers[0]?.userName}</p>
+              <p className="text-gray-500 dark:text-slate-200">
+                상태: {printers[0]?.status} - {printers[0]?.userName}
+              </p>
             </CardContent>
           </Card>
-          <div className="max-w-lg mx-auto h-full bg-white p-4 shadow-md rounded lg:mt-20">
+          <div className="max-w-lg mx-auto h-full bg-white p-4 dark:bg-slate-600 shadow-md rounded lg:mt-20">
             <h2 className="text-lg font-semibold mb-2">
               {printerId} 번 프린터
             </h2>

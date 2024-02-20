@@ -37,7 +37,7 @@ export default function Home() {
   });
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col dark:bg-slate-800">
       {/* 헤더 섹션 */}
       <div className="min-h-screen relative">
         {/* 3D 오브젝트 배경 */}
@@ -61,33 +61,13 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 주요 내용 섹션 */}
-      {/* <motion.div
-        className="min-h-screen flex items-center justify-center"
-        initial={{ opacity: 0, scale: 0.2 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <section className="bg-white py-10 px-8 rounded shadow-md mb-8 max-w-2xl">
-          <h2 className="text-xl font-semibold mb-4">
-            3D 프린터를 통한 창의적인 제작
-          </h2>
-          <p className="text-gray-600">
-            학생들은 3D 프린터를 활용하여 자신만의 아이디어를 현실로 구현할 수
-            있습니다. 예를 들어, 과학 프로젝트 모형, 미니어처, 예술 작품 등
-            다양한 분야에서 활용할 수 있습니다.
-          </p>
-        </section>
-      </motion.div> */}
-
-      {/* 이용 안내 섹션 */}
       <motion.div
-        className="min-h-screen flex items-center justify-center"
+        className="min-h-screen flex items-center justify-center dark:bg-slate-800"
         initial={{ opacity: 0, scale: 0.2 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <section className="bg-white py-10 px-8 rounded shadow-md mb-8 max-w-2xl">
+        <section className="bg-white dark:bg-slate-700 py-10 px-8 rounded shadow-md mb-8 max-w-2xl">
           <h2 className="text-xl font-semibold mb-4">
             3D 프린터 이용 시 주의 사항
           </h2>
@@ -136,10 +116,10 @@ export default function Home() {
       </motion.div>
 
       {/* CTA 섹션 */}
-      <div className=" flex items-center justify-center">
+      <div className=" flex items-center justify-center dark:bg-slate-800">
         {/* CTA 내용 */}
         <section className="text-center flex flex-col">
-          <span className=" text-black py-2 px-6 transition duration-300 ease-in-out">
+          <span className="py-2 px-6 transition duration-300 ease-in-out">
             지금 3D 프린터 이용하기
           </span>
           <div className="flex flex-col items-center justify-between h-[90px]">
@@ -153,7 +133,7 @@ export default function Home() {
         </section>
       </div>
 
-      <div className="px-4 pt-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+      <div className="px-4 pt-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 dark:bg-slate-800">
         <div className="grid gap-10 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2">
             <Link href="/" className="inline-flex items-center">
@@ -170,36 +150,36 @@ export default function Home() {
             </div>
           </div>
           <div className="space-y-2 text-sm">
-            <p className="text-base font-bold tracking-wide text-gray-900">
+            <p className="text-base font-bold tracking-wide text-gray-900 dark:text-white">
               권효찬 교수님
             </p>
             <div className="flex">
-              <p className="mr-1 text-gray-800">연락처:</p>
+              <p className="mr-1">연락처:</p>
               <span className="transition-colors duration-300 text-deep-purple-accent-400 hover:text-deep-purple-800">
                 010-8020-2620
               </span>
             </div>
             <div className="flex">
-              <p className="mr-1 text-gray-800">이메일:</p>
+              <p className="mr-1">이메일:</p>
               <span className="transition-colors duration-300 text-deep-purple-accent-400 hover:text-deep-purple-800">
                 20201006@gtec.ac.kr
               </span>
             </div>
             <div className="flex">
-              <p className="mr-1 text-gray-800">연구실:</p>
+              <p className="mr-1">연구실:</p>
               <span className="transition-colors duration-300 text-deep-purple-accent-400 hover:text-deep-purple-800">
                 A동 304호
               </span>
             </div>
           </div>
           <div>
-            <span className="text-base font-bold tracking-wide text-gray-900">
+            <span className="text-base font-bold tracking-wide">
               디자인 공학과
             </span>
             <div className="flex items-center mt-1 space-x-3">
               <Link
                 href="https://www.gtec.ac.kr/landing/02/index.html"
-                className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-400"
+                className="text-gray-500 dark:text-gray-300 transition-colors duration-300 hover:text-deep-purple-accent-400"
                 target="_blank"
               >
                 <svg
@@ -220,7 +200,7 @@ export default function Home() {
               </Link>
               <Link
                 href="https://www.youtube.com/watch?v=klda9qdGDVI"
-                className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-400"
+                className="text-gray-500 dark:text-gray-300 transition-colors duration-300 hover:text-deep-purple-accent-400"
                 target="_blank"
               >
                 <svg
@@ -241,7 +221,7 @@ export default function Home() {
               </Link>
               <Link
                 href="https://pf.kakao.com/_xkAxbUC"
-                className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-400"
+                className="text-gray-500 dark:text-gray-300 transition-colors duration-300 hover:text-deep-purple-accent-400"
                 target="_blank"
               >
                 <svg
@@ -260,14 +240,16 @@ export default function Home() {
                 </svg>
               </Link>
             </div>
-            <p className="mt-4 text-sm text-gray-500">
+            <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
               자동차, 가전, 생활용품에 나의 상상력을 입히다. 기능적이고 예술적인
               디자인
             </p>
           </div>
         </div>
         <div className="flex flex-col-reverse justify-between pt-5 pb-10 border-t lg:flex-row">
-          <p className="text-sm text-gray-600">© Made by 디자인공학과 조준형</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            © Made by 디자인공학과 조준형
+          </p>
         </div>
       </div>
 
