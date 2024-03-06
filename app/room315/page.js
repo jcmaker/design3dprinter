@@ -50,7 +50,7 @@ function Room315() {
     <div className="p-4 pt-[80px]">
       <h1 className="font-bold text-xl mb-8">315호 프린터</h1>
       {/* 프린터 정보 표시 */}
-      <ul className="sm:grid md:grid lg:grid flex flex-col items-center sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {printers.map((printer) => {
           const remainingTime =
             printer.status === "사용 중"
@@ -70,10 +70,7 @@ function Room315() {
               : 0;
 
           return (
-            <Card
-              key={printer.id}
-              className="flex flex-col h-[350px] w-full max-w-[320px]"
-            >
+            <Card key={printer.id} className="flex flex-col h-[350px]">
               <CardHeader className="bg-slate-100 dark:bg-slate-600 w-full h-3/5 flex items-center justify-center rounded-t-md">
                 {printer.status === "사용가능" && (
                   <div className="flex flex-col items-center justify-center w-full">
