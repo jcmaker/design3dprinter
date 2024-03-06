@@ -7,7 +7,6 @@ import { useAuth } from "@/context/authProvider";
 import { Toaster, toast } from "react-hot-toast";
 import { AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import Image from "next/image";
 
 function Room311PrinterDetail() {
   const { printerId } = useParams();
@@ -141,19 +140,11 @@ function Room311PrinterDetail() {
             className="flex flex-col h-[300px] max-w-lg sm:mx-auto lg:w-1/4 mb-11 mt-10 lg:mt-40"
           >
             <CardHeader className="bg-white dark:bg-slate-300 rounded-t-md w-full h-3/5 flex items-center justify-center">
-              {/* <Image
-                src="/3d-cube.gif"
-                alt=""
-                width={100}
-                height={100}
-                className="aspect-square"
-              /> */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="-250 -250 500 500"
                 className="w-full max-w-lg"
               >
-                {/* Add your Tailwind styles for the SVG elements */}
                 <style>
                   {`
             .filament {
@@ -168,8 +159,6 @@ function Room311PrinterDetail() {
             }
           `}
                 </style>
-
-                {/* Your SVG content */}
                 <defs>
                   <pattern
                     id="hexagon"
@@ -190,7 +179,6 @@ function Room311PrinterDetail() {
                   </pattern>
                 </defs>
                 <g className="filament">
-                  {/* Filled range is from radius 80 to 210 */}
                   <circle r="145" fill="none" strokeWidth="130">
                     <animate
                       attributeName="r"
