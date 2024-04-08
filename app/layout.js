@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { AuthProvider } from "@/context/authProvider";
 import { LoadingPage } from "@/components/loading";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
             <LoadingPage />
             <Navbar className="fixed top-0" />
             {children}
+            <Analytics />
           </AuthProvider>
         </ThemeProvider>
       </body>
