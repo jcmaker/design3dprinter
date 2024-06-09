@@ -287,6 +287,9 @@ const Navbar = () => {
                     </CommandList>
                   </Command>
                 </SheetDescription>
+                <div className="absolute bottom-2 ">
+                  <span className="text-slate-500">ver2.8.2</span>
+                </div>
               </SheetHeader>
             </SheetContent>
           </Sheet>

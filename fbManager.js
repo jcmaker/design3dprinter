@@ -1,16 +1,9 @@
-import firebase from "firebase/app"; // import에서 initializeApp을 명시적으로 불러옵니다.
-import "firebase/analytics"; // 필요한 경우에만 import합니다.
-import "firebase/firestore"; // 필요한 경우에만 import합니다.
-import "firebase/auth"; //
+import firebase from "firebase/app";
+import "firebase/analytics";
+import "firebase/firestore";
+import "firebase/auth";
 
 const firebaseConfig = {
-  // apiKey: "AIzaSyDbgxwCsMOYQI7s6L7-vzc_vgcz5vZV79U",
-  // authDomain: "design-3d-printer.firebaseapp.com",
-  // projectId: "design-3d-printer",
-  // storageBucket: "design-3d-printer.appspot.com",
-  // messagingSenderId: "793430808880",
-  // appId: "1:793430808880:web:43b6ca33a4796c796e10f5",
-  // measurementId: "G-M7KH0770GN",
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
