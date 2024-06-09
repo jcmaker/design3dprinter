@@ -24,14 +24,10 @@ import {
 
 import {
   Command,
-  CommandDialog,
-  CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command";
 
 import { Input } from "./ui/input";
@@ -162,30 +158,6 @@ const Navbar = () => {
                         </DialogContent>
                       </Dialog>
                       <ThemeToggle />
-                      {/* <Button
-                        className="cursor-pointer"
-                        onClick={() => {
-                          auth.signOut();
-                          window.location.reload();
-                        }}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          class="lucide lucide-log-out"
-                        >
-                          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                          <polyline points="16 17 21 12 16 7" />
-                          <line x1="21" x2="9" y1="12" y2="12" />
-                        </svg>
-                      </Button> */}
                     </>
                   ) : (
                     <>
@@ -212,32 +184,13 @@ const Navbar = () => {
                         </CommandItem>
                         <CommandItem>
                           <Component className="mr-2 text-slate-400" />
-                          <span>모든 프린터 (준비중)</span>
+                          <Link href="/overview">한눈에 보기 (준비중)</Link>
                         </CommandItem>
                       </CommandGroup>
                       <CommandSeparator />
 
                       {user ? (
                         <CommandGroup heading="계정">
-                          {/* <CommandItem>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              className="mr-2 text-slate-400"
-                            >
-                              <path d="M18 20a6 6 0 0 0-12 0" />
-                              <circle cx="12" cy="10" r="4" />
-                              <circle cx="12" cy="12" r="10" />
-                            </svg>
-                            <span>프로필 설정</span>
-                          </CommandItem> */}
                           <CommandItem>
                             <LogOut className="mr-2 text-slate-400" />
                             <span
