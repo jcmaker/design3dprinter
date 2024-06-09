@@ -36,7 +36,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { ThemeToggle } from "./ThemeToggler";
-import { Component, DoorClosed, LogOut, Menu } from "lucide-react";
+import { DoorClosed, Eye, Home, LogOut, Menu, User } from "lucide-react";
 
 const Navbar = () => {
   const [name, setName] = useState("");
@@ -176,21 +176,98 @@ const Navbar = () => {
                       <CommandGroup heading="프린터 현황">
                         <CommandItem>
                           <DoorClosed className="mr-2 text-slate-400" />
-                          <Link href="/room311">311호</Link>
+                          <Link href="/room311">311 호</Link>
                         </CommandItem>
                         <CommandItem>
                           <DoorClosed className="mr-2 text-slate-400" />
-                          <Link href="/room315">315호</Link>
+                          <Link href="/room315">315 호</Link>
                         </CommandItem>
                         <CommandItem>
-                          <Component className="mr-2 text-slate-400" />
-                          <Link href="/overview">한눈에 보기 (준비중)</Link>
+                          <Eye className="mr-2 text-slate-400" />
+                          <Link href="/overview">한눈에 보기</Link>
                         </CommandItem>
                       </CommandGroup>
                       <CommandSeparator />
 
                       {user ? (
                         <CommandGroup heading="계정">
+                          <CommandItem>
+                            <Dialog>
+                              <DialogTrigger className="flex">
+                                <User className="mr-2 text-slate-400" />
+                                <span>프로필 설정</span>
+                              </DialogTrigger>
+                              <DialogContent className="sm:max-w-[425px]">
+                                <DialogHeader>
+                                  <DialogTitle>프로필 설정</DialogTitle>
+                                  <DialogDescription>
+                                    프로필을 설정하여 편리하게 이용하세요.
+                                    완료하면 저장 버튼을 클릭하세요.
+                                  </DialogDescription>
+                                </DialogHeader>
+                                <div className="grid gap-4 py-4">
+                                  <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label
+                                      htmlFor="name"
+                                      className="text-right"
+                                    >
+                                      이름
+                                    </Label>
+                                    <Input
+                                      id="name"
+                                      placeholder="홍길동"
+                                      value={name}
+                                      onChange={handleNameChange}
+                                      className="col-span-3"
+                                    />
+                                  </div>
+                                  <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label
+                                      htmlFor="studentId"
+                                      className="text-right"
+                                    >
+                                      학번
+                                    </Label>
+                                    <Input
+                                      id="studenId"
+                                      placeholder="학번"
+                                      value={studentId}
+                                      onChange={(e) =>
+                                        setStudentId(e.target.value)
+                                      }
+                                      className="col-span-3"
+                                    />
+                                  </div>
+                                  <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label
+                                      htmlFor="phoneNumber"
+                                      className="text-right"
+                                    >
+                                      전화번호
+                                    </Label>
+                                    <Input
+                                      id="phoneNumber"
+                                      placeholder="전화번호"
+                                      value={phoneNumber}
+                                      onChange={(e) =>
+                                        setPhoneNumber(e.target.value)
+                                      }
+                                      className="col-span-3"
+                                    />
+                                  </div>
+                                </div>
+                                <DialogFooter>
+                                  <Button type="submit" onClick={handleSave}>
+                                    저장
+                                  </Button>
+                                </DialogFooter>
+                              </DialogContent>
+                            </Dialog>
+                          </CommandItem>
+                          <CommandItem>
+                            <Home className="mr-2 text-slate-400" />
+                            <Link href="/">메인 화면</Link>
+                          </CommandItem>
                           <CommandItem>
                             <LogOut className="mr-2 text-slate-400" />
                             <span
