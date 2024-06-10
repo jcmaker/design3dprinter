@@ -37,6 +37,7 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { ThemeToggle } from "./ThemeToggler";
 import { DoorClosed, Eye, Home, LogOut, Menu, User } from "lucide-react";
+import Image from "next/image";
 
 const Navbar = () => {
   const [name, setName] = useState("");
@@ -78,9 +79,16 @@ const Navbar = () => {
     <div className="border-b fixed top-0 w-full bg-white dark:bg-slate-900 z-50">
       <div className="flex h-16 items-center px-4">
         <Link href="/">
-          <h1 className="font-bold text-xl text-[#F5902B] cursor-pointer">
+          {/* <h1 className="font-bold text-xl text-[#F5902B] cursor-pointer">
             3D
-          </h1>
+          </h1> */}
+          <Image
+            src="/3dLogo.png"
+            alt="logo"
+            width={35}
+            height={35}
+            className="cursor-pointer"
+          />
         </Link>
         <MainNav className="hidden md:block" />
         <div className="ml-auto flex items-center space-x-4">

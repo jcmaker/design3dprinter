@@ -6,6 +6,7 @@ import { Pencil } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function Home() {
   const [printers, setPrinters] = useState([]);
@@ -137,9 +138,16 @@ export default function Home() {
         <div className="grid gap-10 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2">
             <Link href="/" className="inline-flex items-center">
-              <span className="ml-2 text-3xl font-bold tracking-wide text-[#F5902B] cursor-pointer uppercase">
+              {/* <span className="ml-2 text-3xl font-bold tracking-wide text-[#F5902B] cursor-pointer uppercase">
                 3d
-              </span>
+              </span> */}
+              <Image
+                src="/3dLogo.png"
+                alt="logo"
+                width={55}
+                height={55}
+                className="cursor-pointer"
+              />
             </Link>
             <div className="mt-6 lg:max-w-sm">
               <p>
