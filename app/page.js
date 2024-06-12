@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { LoadingPage } from "@/components/loading";
 
 export default function Home() {
   const [printers, setPrinters] = useState([]);
@@ -39,6 +40,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col dark:bg-slate-800">
+      <LoadingPage />
       {/* 헤더 섹션 */}
       <div className="min-h-screen relative">
         {/* 3D 오브젝트 배경 */}

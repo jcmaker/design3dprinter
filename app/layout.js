@@ -2,7 +2,6 @@ import Navbar from "@/components/navbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { AuthProvider } from "@/context/authProvider";
-import { LoadingPage } from "@/components/loading";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -33,7 +32,6 @@ export default function RootLayout({ children }) {
           disableTransitionOnChange
         >
           <AuthProvider>
-            <LoadingPage />
             <Navbar className="fixed top-0" />
             {children}
             <Analytics />
