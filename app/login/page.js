@@ -13,7 +13,7 @@ import toast, { Toaster } from "react-hot-toast";
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [newAccount, setNewAccount] = useState(true);
+  const [newAccount, setNewAccount] = useState(false);
   const router = useRouter(); // useRouter 훅 사용
 
   const handleGoogleLogin = async () => {
