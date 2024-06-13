@@ -27,7 +27,9 @@ if (typeof window !== "undefined") {
 const db = firebase.firestore();
 const auth = firebase.auth();
 const providerGoogle = new firebase.auth.GoogleAuthProvider();
+const providerMicrosoft = new firebase.auth.OAuthProvider("microsoft.com");
+
 // 기타 필요한 Firebase 서비스를 초기화합니다.
 
 // 필요한 Firebase 서비스를 export합니다.
-export { auth, providerGoogle, db };
+export { auth, providerGoogle, providerMicrosoft, db };

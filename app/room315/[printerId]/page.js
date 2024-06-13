@@ -7,7 +7,6 @@ import { useAuth } from "@/context/authProvider";
 import { Toaster, toast } from "react-hot-toast";
 import { AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import Image from "next/image";
 
 function Room315PrinterDetail() {
   const { printerId } = useParams();
