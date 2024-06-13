@@ -1,137 +1,152 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/authProvider";
-import { db } from "fbManager";
 import { Pencil } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import Image from "next/image";
-import { LoadingPage } from "@/components/loading";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [printers, setPrinters] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { user: authUser } = useAuth();
+  const isSpecificUser = authUser?.uid === process.env.NEXT_PUBLIC_ADMIN_ID;
 
   useEffect(() => {
-    const unsubscribe = db.collection("printers").onSnapshot((snapshot) => {
-      const printerData = [];
-      snapshot.forEach((doc) => {
-        printerData.push({ id: doc.id, ...doc.data() });
-      });
-      printerData.sort((a, b) =>
-        parseInt(a.serialNumber) > parseInt(b.serialNumber) ? 1 : -1
-      );
-      setPrinters(printerData);
-    });
-    return () => {
-      unsubscribe();
-    };
+    // Simulate loading for demonstration purposes
+    const timer = setTimeout(() => setIsLoading(false), 200);
+    return () => clearTimeout(timer);
   }, []);
-
-  const isSpecificUser = authUser?.uid === process.env.NEXT_PUBLIC_ADMIN_ID;
-  const groupedPrinters = {};
-  printers.forEach((printer) => {
-    if (!groupedPrinters[printer.roomNumber]) {
-      groupedPrinters[printer.roomNumber] = [];
-    }
-    groupedPrinters[printer.roomNumber].push(printer);
-  });
 
   return (
     <div className="flex flex-col dark:bg-slate-800">
-      <LoadingPage />
       {/* 헤더 섹션 */}
       <div className="min-h-screen relative">
-        {/* 3D 오브젝트 배경 */}
-        <div
-          style={{
-            backgroundImage: `url("/protruding-squares.png")`,
-          }}
-          className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-40 bg-repeat bg-center bg-[length:200px_200px] lg:bg-[length:400px_400px]"
-        >
-          {/* 이미지 찾아오기 */}
-        </div>
+        {isLoading ? (
+          <Skeleton className="absolute inset-0 w-full h-full bg-black bg-opacity-40 bg-repeat bg-center rounded-none lg:bg-[length:400px_400px]" />
+        ) : (
+          <div
+            style={{
+              backgroundImage: `url("/protruding-squares.png")`,
+            }}
+            className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-40 bg-repeat bg-center bg-[length:200px_200px] lg:bg-[length:400px_400px]"
+          >
+            {/* 이미지 찾아오기 */}
+          </div>
+        )}
 
         {/* 텍스트 배치 */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <h1 className="text-white text-xl md:text-4xl font-bold z-10">
-            학생들을 위한
-          </h1>
-          <h1 className="text-white text-xl md:text-4xl font-bold z-10">
-            3D 프린터 이용 안내
-          </h1>
+          {isLoading ? (
+            <>
+              <Skeleton className="w-40 h-8 md:w-96 md:h-16 rounded-full mb-2" />
+              <Skeleton className="w-40 h-8 md:w-96 md:h-16 rounded-full" />
+            </>
+          ) : (
+            <>
+              <h1 className="text-white text-xl md:text-4xl font-bold z-10">
+                학생들을 위한
+              </h1>
+              <h1 className="text-white text-xl md:text-4xl font-bold z-10">
+                3D 프린터 이용 안내
+              </h1>
+            </>
+          )}
         </div>
       </div>
 
-      <motion.div
+      <div
         className="min-h-screen flex items-center justify-center dark:bg-slate-800"
         initial={{ opacity: 0, scale: 0.2 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
       >
         <section className="bg-white dark:bg-slate-700 py-10 px-8 rounded shadow-md mb-8 max-w-2xl">
-          <h2 className="text-xl font-semibold mb-4">
-            3D 프린터 이용 시 주의 사항
-          </h2>
-          <ul className="list-disc pl-4 space-y-2">
-            <li>
-              출력 시,{" "}
-              <span className="text-red-500 font-semibold">
-                레이어 1층이 반드시 깔리는 것을 확인
-              </span>
-              하고 현황을 입력합니다.
-            </li>
-            <li>
-              <span className="text-red-500 font-semibold">
-                노즐과 히팅베드 모두 뜨겁습니다.
-              </span>{" "}
-              화상에 주의하세요.
-            </li>
-            <li>
-              출력물을 분리할 때는{" "}
-              <span className="text-red-500 font-semibold">
-                스크래퍼나 끌을 사용하지 마세요.
-              </span>{" "}
-              출력표면에 손상이 갑니다.
-            </li>
-            <li>
-              <span className="text-red-500 font-semibold">
-                3D 프린터 출력실은 공기가 좋지 않습니다.
-              </span>{" "}
-              출력물 분리 등의 작업은 다른 곳에서 하세요.
-            </li>
-            <li>
-              3D 프린터 출력 후 서포터 등의{" "}
-              <span className="text-red-500 font-semibold">
-                쓰레기는 반드시 쓰레기통에 버려주시길 바랍니다.
-              </span>
-            </li>
-            <li>
-              3D 프린터가{" "}
-              <span className="text-red-500 font-semibold">
-                약간이라도 이상하게 작동하면 즉시 작업을 중지하고 교수님께 연락
-              </span>{" "}
-              합니다.
-            </li>
-          </ul>
+          {isLoading ? (
+            <>
+              <Skeleton className="w-64 h-8 rounded-full mb-4" />
+              <Skeleton className="w-full h-4 rounded-full mb-2" />
+              <Skeleton className="w-full h-4 rounded-full mb-2" />
+              <Skeleton className="w-full h-4 rounded-full mb-2" />
+              <Skeleton className="w-full h-4 rounded-full mb-2" />
+              <Skeleton className="w-full h-4 rounded-full mb-2" />
+              <Skeleton className="w-full h-4 rounded-full mb-2" />
+            </>
+          ) : (
+            <>
+              <h2 className="text-xl font-semibold mb-4">
+                3D 프린터 이용 시 주의 사항
+              </h2>
+              <ul className="list-disc pl-4 space-y-2">
+                <li>
+                  출력 시,{" "}
+                  <span className="text-red-500 font-semibold">
+                    레이어 1층이 반드시 깔리는 것을 확인
+                  </span>
+                  하고 현황을 입력합니다.
+                </li>
+                <li>
+                  <span className="text-red-500 font-semibold">
+                    노즐과 히팅베드 모두 뜨겁습니다.
+                  </span>{" "}
+                  화상에 주의하세요.
+                </li>
+                <li>
+                  출력물을 분리할 때는{" "}
+                  <span className="text-red-500 font-semibold">
+                    스크래퍼나 끌을 사용하지 마세요.
+                  </span>{" "}
+                  출력표면에 손상이 갑니다.
+                </li>
+                <li>
+                  <span className="text-red-500 font-semibold">
+                    3D 프린터 출력실은 공기가 좋지 않습니다.
+                  </span>{" "}
+                  출력물 분리 등의 작업은 다른 곳에서 하세요.
+                </li>
+                <li>
+                  3D 프린터 출력 후 서포터 등의{" "}
+                  <span className="text-red-500 font-semibold">
+                    쓰레기는 반드시 쓰레기통에 버려주시길 바랍니다.
+                  </span>
+                </li>
+                <li>
+                  3D 프린터가{" "}
+                  <span className="text-red-500 font-semibold">
+                    약간이라도 이상하게 작동하면 즉시 작업을 중지하고 교수님께
+                    연락
+                  </span>{" "}
+                  합니다.
+                </li>
+              </ul>
+            </>
+          )}
         </section>
-      </motion.div>
+      </div>
 
       {/* CTA 섹션 */}
-      <div className=" flex items-center justify-center dark:bg-slate-800">
+      <div className="flex items-center justify-center dark:bg-slate-800">
         {/* CTA 내용 */}
         <section className="text-center flex flex-col">
           <span className="py-2 px-6 transition duration-300 ease-in-out">
             지금 3D 프린터 이용하기
           </span>
           <div className="flex flex-col items-center justify-between h-[90px]">
-            <Link href="/room311">
-              <Button className="w-[180px]">311호</Button>
-            </Link>
-            <Link href="/room315">
-              <Button className="w-[180px]">315호</Button>
-            </Link>
+            {isLoading ? (
+              <>
+                <Skeleton className="w-[180px] h-10 rounded-full mb-2" />
+                <Skeleton className="w-[180px] h-10 rounded-full" />
+              </>
+            ) : (
+              <>
+                <Link href="/room311">
+                  <Button className="w-[180px]">311호</Button>
+                </Link>
+                <Link href="/room315">
+                  <Button className="w-[180px]">315호</Button>
+                </Link>
+              </>
+            )}
           </div>
         </section>
       </div>
