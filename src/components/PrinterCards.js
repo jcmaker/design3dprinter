@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
-import { AlertTriangle, HardHat } from "lucide-react"; // adjust this import according to your icon library
+import { AlertTriangle, Wrench } from "lucide-react"; // adjust this import according to your icon library
 import Link from "next/link"; // adjust this import according to your routing library
 import { Button } from "./ui/button";
 
@@ -75,8 +75,8 @@ function PrinterCards({ printer }) {
         {printer.status === "수리중" && (
           <div className="flex flex-col items-center justify-center w-full">
             <Progress value={0} className="bg-white" />
-            <HardHat
-              className="h-14 w-14 fill-yellow-300 absolute"
+            <Wrench
+              className="h-14 w-14 fill-slate-300 absolute"
               stroke="black"
             />
           </div>

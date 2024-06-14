@@ -2,11 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { db } from "fbManager";
 import { useParams, useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/authProvider";
-import { Toaster, toast } from "react-hot-toast";
-import { AlertTriangle } from "lucide-react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { toast } from "react-hot-toast";
+import PrinterSubmitCard from "@/components/PrinterSubmitCard";
 
 function Room311PrinterDetail() {
   const { printerId } = useParams();
@@ -129,203 +127,25 @@ function Room311PrinterDetail() {
   };
 
   return (
-    <div className="lg:flex">
-      <Toaster />
-
-      {printers[0]?.status === "사용가능" ||
-      printers[0]?.status === "사용 중" ? (
-        <>
-          <Card
-            key={printers[0]?.id}
-            className="flex flex-col h-[300px] max-w-lg sm:mx-auto lg:w-1/4 mb-11 mt-10 lg:mt-40"
-          >
-            <CardHeader className="bg-white dark:bg-slate-300 rounded-t-md w-full h-3/5 flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="-250 -250 500 500"
-                className="w-full max-w-lg"
-              >
-                <style>
-                  {`
-            .filament {
-              stroke: #ED6B21;
-            }
-            .spool {
-              stroke: #231F20;
-              fill: none;
-            }
-            .filament line {
-              stroke-linecap: round;
-            }
-          `}
-                </style>
-                <defs>
-                  <pattern
-                    id="hexagon"
-                    className="spool"
-                    viewBox="-0.866025 -1.5 1.73205 3"
-                    width="57.735"
-                    height="100"
-                    patternUnits="userSpaceOnUse"
-                    patternTransform="scale(0.875)"
-                  >
-                    <polygon
-                      points="0,1 0.866025,0.5 0.866025,-0.5 0,-1 -0.866025,-0.5 -0.866025,0.5"
-                      fill="none"
-                      strokeWidth="0.34"
-                    />
-                    <line x1="0" y1="1" x2="0" y2="1.5" strokeWidth="0.34" />
-                    <line x1="0" y1="-1" x2="0" y2="-1.5" strokeWidth="0.34" />
-                  </pattern>
-                </defs>
-                <g className="filament">
-                  <circle r="145" fill="none" strokeWidth="130">
-                    <animate
-                      attributeName="r"
-                      values="145;80;145"
-                      dur="6s"
-                      repeatCount="indefinite"
-                    />
-                    <animate
-                      attributeName="stroke-width"
-                      values="130;0;130"
-                      dur="6s"
-                      repeatCount="indefinite"
-                    />
-                  </circle>
-                  <line x1="204" y1="0" x2="204" y2="245" strokeWidth="12">
-                    <animate
-                      attributeName="x1"
-                      values="204;74;204"
-                      dur="6s"
-                      repeatCount="indefinite"
-                    />
-                    <animate
-                      attributeName="x2"
-                      values="204;74;204"
-                      dur="6s"
-                      repeatCount="indefinite"
-                    />
-                  </line>
-                </g>
-                <g className="spool">
-                  <circle
-                    r="157"
-                    fill="none"
-                    strokeWidth="171"
-                    stroke="url(#hexagon)"
-                  />
-                  <circle r="244" strokeWidth="12" />
-                  <circle r="71" strokeWidth="18" />
-                  <animateTransform
-                    attributeName="transform"
-                    type="rotate"
-                    values="0;540;0"
-                    begin="0s"
-                    dur="6s"
-                    fill="freeze"
-                    repeatCount="indefinite"
-                  />
-                </g>
-              </svg>
-            </CardHeader>
-            <CardContent className="flex-grow p-4">
-              <h2 className="text-lg font-medium">
-                번호: {printers[0]?.serialNumber}
-              </h2>
-              <h3 className="">{printers[0]?.company}</h3>
-              <p className="text-gray-500 dark:text-slate-200">
-                상태: {printers[0]?.status} - {printers[0]?.userName}
-              </p>
-            </CardContent>
-          </Card>
-          <div className="max-w-lg mx-auto h-full bg-white p-4 dark:bg-slate-600 shadow-md rounded lg:mt-20">
-            <h2 className="text-lg font-semibold mb-2">
-              {printerId} 번 프린터
-            </h2>
-            <form onSubmit={handleSubmit} className="space-y-4 flex-col">
-              <input
-                type="text"
-                placeholder="이름"
-                value={name}
-                onChange={handleNameChange}
-                className="border p-2 rounded w-full"
-                disabled={
-                  printers[0]?.status === "고장남" ||
-                  printers[0]?.status === "수리중"
-                }
-              />
-              <input
-                type="text"
-                placeholder="학번"
-                value={studentId}
-                onChange={(e) => setStudentId(e.target.value)}
-                className="border p-2 rounded w-full"
-                disabled={
-                  printers[0]?.status === "고장남" ||
-                  printers[0]?.status === "수리중"
-                }
-              />
-              <input
-                type="text"
-                placeholder="전화번호"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                className="border p-2 rounded w-full"
-                disabled={
-                  printers[0]?.status === "고장남" ||
-                  printers[0]?.status === "수리중"
-                }
-              />
-              <div className="flex">
-                <p className="flex flex-grow justify-start">시간</p>
-                <p className="flex flex-grow justify-start">분</p>
-              </div>
-              <div className="flex">
-                <input
-                  type="number"
-                  placeholder="시간"
-                  value={hours}
-                  onChange={(e) => setHours(e.target.value)}
-                  className="border p-2 rounded w-full mr-2"
-                  disabled={
-                    printers[0]?.status === "고장남" ||
-                    printers[0]?.status === "수리중"
-                  }
-                />
-                <input
-                  type="number"
-                  placeholder="분"
-                  value={minutes}
-                  onChange={(e) => setMinutes(e.target.value)}
-                  className="border p-2 rounded w-full"
-                  disabled={
-                    printers[0]?.status === "고장남" ||
-                    printers[0]?.status === "수리중"
-                  }
-                />
-              </div>
-              <Button
-                type="submit"
-                className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300"
-                disabled={
-                  printers[0]?.status === "고장남" ||
-                  printers[0]?.status === "수리중"
-                }
-              >
-                제출
-              </Button>
-            </form>
-          </div>
-        </>
-      ) : (
-        <div className="absolute w-full h-full flex flex-col items-center justify-center">
-          <AlertTriangle className="h-14 w-14 fill-rose-500 " />
-          <h2 className="text-5xl text-black font-bold">이용 불가</h2>
-          <span className="mt-8">{printers[0]?.status}</span>
-        </div>
-      )}
-    </div>
+    <>
+      {printers.map((printer, index) => (
+        <PrinterSubmitCard
+          key={index}
+          printer={printer}
+          handleSubmit={handleSubmit}
+          handleNameChange={handleNameChange}
+          setStudentId={setStudentId}
+          setPhoneNumber={setPhoneNumber}
+          setHours={setHours}
+          setMinutes={setMinutes}
+          name={name}
+          studentId={studentId}
+          phoneNumber={phoneNumber}
+          hours={hours}
+          minutes={minutes}
+        />
+      ))}
+    </>
   );
 }
 

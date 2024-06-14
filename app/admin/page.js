@@ -75,6 +75,7 @@ export default function FormBox() {
         status: newStatus,
         userName: "",
         userStudentId: "",
+        phoneNumber: "",
         printingTime: 0,
       });
 
