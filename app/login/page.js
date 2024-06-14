@@ -1,14 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { auth, providerGoogle, providerMicrosoft } from "fbManager";
-import { useRouter } from "next/navigation"; // next/router 임포트
-
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { Separator } from "@/components/ui/separator";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -74,7 +73,9 @@ function LoginPage() {
               {newAccount ? "회원가입" : "로그인"}
             </h1>
             <p className="text-balance text-muted-foreground">
-              계정에 로그인하려면 아래 이메일을 입력하세요.
+              {newAccount
+                ? "회원가입하려면 아래 이메일을 입력하세요"
+                : "계정에 로그인하려면 아래 이메일을 입력하세요."}
             </p>
           </div>
           <form className="grid gap-4" onSubmit={onSubmit}>
@@ -106,39 +107,40 @@ function LoginPage() {
             <Button type="submit" className="w-full">
               {newAccount ? "회원가입" : "로그인"}
             </Button>
+            <div className="flex items-center">
+              <Separator className="flex-1 dark:bg-slate-400" />
+              <span className="px-2 text-gray-500 dark:text-gray-400">or</span>
+              <Separator className="flex-1 dark:bg-slate-400" />
+            </div>
             <Button
               variant="outline"
               className="w-full"
               onClick={handleGoogleLogin}
             >
-              <div className="w-1/2 flex justify-center items-center">
-                <Image
-                  src="/search.png"
-                  width={20}
-                  height={20}
-                  alt="google+"
-                  loading="lazy"
-                  className="mr-2 justify-items-start"
-                />
-                <span>구글 로그인</span>
-              </div>
+              <Image
+                src="/search.png"
+                width={20}
+                height={20}
+                alt="google+"
+                loading="lazy"
+                className="mr-2 justify-items-start"
+              />
+              <span>Google로 시작하기</span>
             </Button>
             <Button
               variant="outline"
-              className="w-full"
+              className="w-full "
               onClick={handleMicrosoftLogin}
             >
-              <div className="w-1/2 flex justify-center items-center">
-                <Image
-                  src="/Microsoft_Logo.png"
-                  width={20}
-                  height={20}
-                  alt="MS"
-                  loading="lazy"
-                  className="mr-2 justify-items-start"
-                />
-                <span>마이크로소프트 로그인</span>
-              </div>
+              <Image
+                src="/Microsoft_Logo.png"
+                width={20}
+                height={20}
+                alt="MS"
+                loading="lazy"
+                className="mr-2 justify-items-start"
+              />
+              <span>Microsoft로 시작하기</span>
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">
@@ -159,28 +161,6 @@ function LoginPage() {
         />
       </div>
     </div>
-    // <div className="absolute z-50 top-0 w-screen flex items-center justify-center min-h-screen bg-gray-100">
-    //   <div className="bg-white shadow-lg rounded-lg p-10">
-    //     <h2 className="text-black text-3xl font-bold text-center mb-4">
-    //       디자인 공학과
-    //     </h2>
-    //     <p className="text-gray-600 text-center mb-8">3D 프린터 사이트</p>
-    //     <Button
-    //       className="bg-slate-100 text-black w-full py-2 mb-4"
-    //       onClick={handleLogin}
-    //     >
-    //       <Image
-    //         src="/search.png"
-    //         width={20}
-    //         height={20}
-    //         alt="google+"
-    //         loading="lazy"
-    //         className="mr-2"
-    //       />
-    //       구글 로그인
-    //     </Button>
-    //   </div>
-    // </div>
   );
 }
 
