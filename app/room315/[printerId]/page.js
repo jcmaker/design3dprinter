@@ -7,6 +7,7 @@ import { useAuth } from "@/context/authProvider";
 import { Toaster, toast } from "react-hot-toast";
 import { AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 function Room315PrinterDetail() {
   const { printerId } = useParams();
@@ -128,20 +129,20 @@ function Room315PrinterDetail() {
   };
 
   return (
-    <div className="lg:flex">
+    <div className="flex pt-[80px] h-screen justify-center">
       <Toaster />
       {printers[0]?.status === "사용가능" ||
       printers[0]?.status === "사용 중" ? (
         <>
           <Card
             key={printers[0]?.id}
-            className="flex flex-col h-[300px] max-w-lg sm:mx-auto lg:w-1/4 mb-11 mt-10 lg:mt-40"
+            className="flex flex-col h-auto lg:max-h-[800px]  max-w-lg sm:mx-auto lg:w-1/4"
           >
-            <CardHeader className="bg-white dark:bg-slate-300 rounded-t-md w-full h-3/5 flex flex-col items-center justify-center">
+            <CardHeader className="bg-white dark:bg-slate-300 rounded-t-md w-full h-1/6 lg:h-1/3  flex flex-col items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="-500 -500 1000 1000"
-                className="w-full max-w-lg"
+                className="w-full max-w-lg h-full"
               >
                 {/* Add your Tailwind styles for the SVG elements */}
                 <style>
@@ -232,94 +233,97 @@ function Room315PrinterDetail() {
               </svg>
             </CardHeader>
             <CardContent className="flex-grow p-4">
-              <h2 className="text-lg font-medium">
-                번호: {printers[0]?.serialNumber}
+              <h2 className="text-lg font-semibold mb-2">
+                {printerId} 번 프린터
               </h2>
-              <h3 className="">{printers[0]?.company}</h3>
+              <h3 className="mb-2">{printers[0]?.company}</h3>
               <p className="text-gray-500 dark:text-slate-200">
-                상태: {printers[0]?.status} - {printers[0]?.userName}
+                상태: {printers[0]?.status} -{" "}
+                {printers[0]?.userName ? (
+                  printers[0]?.userName
+                ) : (
+                  <span className="text-slate-500">비어있음</span>
+                )}
               </p>
-            </CardContent>
-          </Card>
-          <div className="max-w-lg mx-auto h-full bg-white dark:bg-slate-600 p-4 shadow-md rounded lg:mt-20">
-            <h2 className="text-lg font-semibold mb-2">
-              {printerId} 번 프린터
-            </h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="text"
-                placeholder="이름"
-                value={name}
-                // onChange={(e) => setName(e.target.value)}
-                onChange={handleNameChange}
-                className="border p-2 rounded w-full"
-                disabled={
-                  printers[0]?.status === "고장남" ||
-                  printers[0]?.status === "수리중"
-                }
-              />
-              <input
-                type="text"
-                placeholder="학번"
-                value={studentId}
-                onChange={(e) => setStudentId(e.target.value)}
-                className="border p-2 rounded w-full"
-                disabled={
-                  printers[0]?.status === "고장남" ||
-                  printers[0]?.status === "수리중"
-                }
-              />
-              <input
-                type="text"
-                placeholder="전화번호"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                className="border p-2 rounded w-full"
-                disabled={
-                  printers[0]?.status === "고장남" ||
-                  printers[0]?.status === "수리중"
-                }
-              />
-              <div className="flex">
-                <p className="flex flex-grow justify-start">시간</p>
-                <p className="flex flex-grow justify-start">분</p>
-              </div>
-              <div className="flex">
+
+              <Separator className="mt-5 mb-5" />
+
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <input
-                  type="number"
-                  placeholder="시간"
-                  value={hours}
-                  onChange={(e) => setHours(e.target.value)}
-                  className="border p-2 rounded w-full mr-2"
-                  disabled={
-                    printers[0]?.status === "고장남" ||
-                    printers[0]?.status === "수리중"
-                  }
-                />
-                <input
-                  type="number"
-                  placeholder="분"
-                  value={minutes}
-                  onChange={(e) => setMinutes(e.target.value)}
+                  type="text"
+                  placeholder="이름"
+                  value={name}
+                  onChange={handleNameChange}
                   className="border p-2 rounded w-full"
                   disabled={
                     printers[0]?.status === "고장남" ||
                     printers[0]?.status === "수리중"
                   }
                 />
-              </div>
-              <Button
-                type="submit"
-                className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300"
-                disabled={
-                  printers[0]?.status === "고장남" ||
-                  printers[0]?.status === "수리중"
-                }
-              >
-                제출
-              </Button>
-            </form>
-          </div>
+                <input
+                  type="text"
+                  placeholder="학번"
+                  value={studentId}
+                  onChange={(e) => setStudentId(e.target.value)}
+                  className="border p-2 rounded w-full"
+                  disabled={
+                    printers[0]?.status === "고장남" ||
+                    printers[0]?.status === "수리중"
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="전화번호"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  className="border p-2 rounded w-full"
+                  disabled={
+                    printers[0]?.status === "고장남" ||
+                    printers[0]?.status === "수리중"
+                  }
+                />
+                <div className="flex">
+                  <p className="flex flex-grow justify-start">시간</p>
+                  <p className="flex flex-grow justify-start">분</p>
+                </div>
+                <div className="flex">
+                  <input
+                    type="number"
+                    placeholder="시간"
+                    value={hours}
+                    onChange={(e) => setHours(e.target.value)}
+                    className="border p-2 rounded w-full mr-2"
+                    disabled={
+                      printers[0]?.status === "고장남" ||
+                      printers[0]?.status === "수리중"
+                    }
+                  />
+                  <input
+                    type="number"
+                    placeholder="분"
+                    value={minutes}
+                    onChange={(e) => setMinutes(e.target.value)}
+                    className="border p-2 rounded w-full"
+                    disabled={
+                      printers[0]?.status === "고장남" ||
+                      printers[0]?.status === "수리중"
+                    }
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300 mt-10"
+                  disabled={
+                    printers[0]?.status === "고장남" ||
+                    printers[0]?.status === "수리중"
+                  }
+                >
+                  제출
+                </Button>
+              </form>
+            </CardContent>
+            {/* </Card> */}
+          </Card>
         </>
       ) : (
         <div className="absolute w-full h-full flex flex-col items-center justify-center">
