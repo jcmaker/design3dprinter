@@ -28,21 +28,23 @@ function Room315() {
   }, []);
 
   return (
-    <div className="p-4 pt-[80px]">
-      <h1 className="font-bold text-xl mb-8">315호 프린터</h1>
-      {/* 프린터 정보 표시 */}
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        {printers.length > 0
-          ? printers.map((printer) => (
-              <PrinterCards
-                key={printer.id}
-                printer={{ ...printer, room: 315 }}
-              />
-            ))
-          : Array.from({ length: 8 }).map((_, index) => (
-              <PrinterCards key={index} />
-            ))}
-      </ul>
+    <div className="p-4 pt-[80px] flex flex-col items-center">
+      <div className="max-w-[1600px] w-full">
+        <h1 className="font-bold text-xl mb-8">315호 프린터</h1>
+        {/* 프린터 정보 표시 */}
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          {printers.length > 0
+            ? printers.map((printer) => (
+                <PrinterCards
+                  key={printer.id}
+                  printer={{ ...printer, room: 315 }}
+                />
+              ))
+            : Array.from({ length: 8 }).map((_, index) => (
+                <PrinterCards key={index} />
+              ))}
+        </ul>
+      </div>
     </div>
   );
 }
