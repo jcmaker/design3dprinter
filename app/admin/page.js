@@ -76,6 +76,8 @@ export default function FormBox() {
         userName: "",
         userStudentId: "",
         phoneNumber: "",
+        endTime: "",
+        submissionTime: "",
         printingTime: 0,
       });
 

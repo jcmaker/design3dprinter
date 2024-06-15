@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "react-hot-toast";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 
 const PrinterSubmitCard = ({
   printer,
@@ -132,27 +134,47 @@ const PrinterSubmitCard = ({
               </p>
               <Separator className="mt-5 mb-5" />
               <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                  type="text"
-                  placeholder="이름"
-                  value={name}
-                  onChange={handleNameChange}
-                  className="border p-2 rounded w-full"
-                  disabled={
-                    printer?.status === "고장남" || printer?.status === "수리중"
-                  }
-                />
-                <input
-                  type="text"
-                  placeholder="학번"
-                  value={studentId}
-                  onChange={(e) => setStudentId(e.target.value)}
-                  className="border p-2 rounded w-full"
-                  disabled={
-                    printer?.status === "고장남" || printer?.status === "수리중"
-                  }
-                />
-                <input
+                <Label
+                  htmlFor="name"
+                  className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                >
+                  <Input
+                    type="text"
+                    id="name"
+                    placeholder="이름"
+                    value={name}
+                    onChange={handleNameChange}
+                    className="border p-2 rounded w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                    disabled={
+                      printer?.status === "고장남" ||
+                      printer?.status === "수리중"
+                    }
+                  />
+                  <span className="pointer-events-none bg-white dark:bg-slate-950 absolute start-2 top-0 -translate-y-1/2 p-0.5 text-md text-slate-400 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                    이름 <span className="text-red-600 text-center">*</span>
+                  </span>
+                </Label>
+                <Label
+                  htmlFor="studentId"
+                  className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                >
+                  <Input
+                    type="text"
+                    id="studentId"
+                    placeholder="학번"
+                    value={studentId}
+                    onChange={(e) => setStudentId(e.target.value)}
+                    className="border p-2 rounded w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                    disabled={
+                      printer?.status === "고장남" ||
+                      printer?.status === "수리중"
+                    }
+                  />
+                  <span className="pointer-events-none bg-white dark:bg-slate-950 absolute start-2 top-0 -translate-y-1/2 p-0.5 text-md text-slate-400 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                    학번 <span className="text-red-600 text-center">*</span>
+                  </span>
+                </Label>
+                <Input
                   type="text"
                   placeholder="전화번호"
                   value={phoneNumber}
@@ -167,7 +189,7 @@ const PrinterSubmitCard = ({
                   <p className="flex flex-grow justify-start">분</p>
                 </div>
                 <div className="flex">
-                  <input
+                  <Input
                     type="number"
                     placeholder="시간"
                     value={hours}
@@ -178,7 +200,7 @@ const PrinterSubmitCard = ({
                       printer?.status === "수리중"
                     }
                   />
-                  <input
+                  <Input
                     type="number"
                     placeholder="분"
                     value={minutes}

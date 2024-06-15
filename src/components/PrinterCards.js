@@ -24,7 +24,7 @@ function PrinterCards({ printer }) {
   if (!printer) {
     return (
       <Card className="flex flex-col h-[350px]">
-        <CardHeader className="bg-slate-100 dark:bg-slate-600 w-full h-3/5 flex items-center justify-center rounded-t-md">
+        <CardHeader className=" w-full h-3/5 flex items-center justify-center rounded-t-md">
           <Skeleton className="w-full h-full" />
         </CardHeader>
         <CardContent className="flex-grow p-4">
