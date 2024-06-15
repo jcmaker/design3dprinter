@@ -1,62 +1,20 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/authProvider";
-import { Pencil, PrinterIcon } from "lucide-react";
+import { Pencil } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
   const { user: authUser } = useAuth();
   const isSpecificUser = authUser?.uid === process.env.NEXT_PUBLIC_ADMIN_ID;
 
-  useEffect(() => {
-    // Simulate loading for demonstration purposes
-    const timer = setTimeout(() => setIsLoading(false), 200);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <div className="flex flex-col dark:bg-slate-800">
+    <div className="flex flex-col dark:bg-slate-800 ">
       {/* 헤더 섹션 */}
-      <div className="flex flex-col min-h-[100dvh]">
-        <header className="px-4 lg:px-6 h-14 flex items-center">
-          <Link
-            href="#"
-            className="flex items-center justify-center"
-            prefetch={false}
-          >
-            <PrinterIcon className="h-6 w-6" />
-            <span className="sr-only">3D Printer Status</span>
-          </Link>
-          <nav className="ml-auto flex gap-4 sm:gap-6">
-            <Link
-              href="#"
-              className="text-sm font-medium hover:underline underline-offset-4"
-              prefetch={false}
-            >
-              Availability
-            </Link>
-            <Link
-              href="#"
-              className="text-sm font-medium hover:underline underline-offset-4"
-              prefetch={false}
-            >
-              Instructions
-            </Link>
-            <Link
-              href="#"
-              className="text-sm font-medium hover:underline underline-offset-4"
-              prefetch={false}
-            >
-              Contact
-            </Link>
-          </nav>
-        </header>
-        <main className="flex-1">
-          <section className="w-full py-12 md:py-24 lg:py-32">
+      <div className="flex flex-col ">
+        <main className="flex-1 pt-12 lg:pt-0 ">
+          <section className="w-full py-12 md:py-24 lg:py-32 ">
             <div className="container px-4 md:px-6">
               <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
                 <div className="flex flex-col justify-center space-y-4">
@@ -85,16 +43,46 @@ export default function Home() {
                 <Image
                   src="/mobility_img02.png"
                   alt="3D Printer"
-                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last"
+                  className="mx-auto aspect-square lg:hidden overflow-hidden rounded-xl object-cover sm:w-full lg:order-last"
                   width={400}
                   height={400}
                 />
+                <div className="columns-3xs gap-x-2 hidden lg:block">
+                  <Image
+                    src="/mobility_img02.png"
+                    alt="3D Printer"
+                    className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last mb-1.4"
+                    width={400}
+                    height={400}
+                  />
+                  <Image
+                    src="/mobility_img05.png"
+                    alt="3D Printer"
+                    className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last m-2"
+                    width={400}
+                    height={400}
+                  />
+                  <Image
+                    src="/mobility_img06.png"
+                    alt="3D Printer"
+                    className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last mb-1.4"
+                    width={400}
+                    height={400}
+                  />
+                  <Image
+                    src="/mobility_img07.png"
+                    alt="3D Printer"
+                    className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last m-2"
+                    width={400}
+                    height={400}
+                  />
+                </div>
               </div>
             </div>
           </section>
           <section
             id="availability"
-            className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800"
+            className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 "
           >
             <div className="container px-4 md:px-6">
               <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -150,7 +138,10 @@ export default function Home() {
               </div>
             </div>
           </section>
-          <section id="instructions" className="w-full py-12 md:py-24 lg:py-32">
+          <section
+            id="instructions"
+            className="w-full py-12 md:py-24 lg:py-32 "
+          >
             <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
@@ -185,7 +176,10 @@ export default function Home() {
               </div>
             </div>
           </section>
-          <section id="instructions" className="w-full py-12 md:py-24 lg:py-32">
+          <section
+            id="instructions"
+            className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800"
+          >
             <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight text-red-500">
