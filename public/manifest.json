@@ -1,0 +1,20 @@
+{
+  "name": "디공3D프린터",
+  "short_name": "PWA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffa500",
+  "icons": [
+    {
+      "src": "3dLogo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "3dLogo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

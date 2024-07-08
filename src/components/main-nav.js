@@ -2,7 +2,7 @@
 
 import { cn } from "lib/utils";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export function MainNav({ className, ...props }) {
   const pathname = usePathname();
