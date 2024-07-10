@@ -39,6 +39,7 @@ import { ThemeToggle } from "./ThemeToggler";
 import { DoorClosed, Eye, Home, LogOut, Menu, User } from "lucide-react";
 import Image from "next/image";
 import { Skeleton } from "./ui/skeleton";
+import Footer from "./footer";
 
 const Navbar = () => {
   const [name, setName] = useState("");
@@ -316,8 +317,72 @@ const Navbar = () => {
                       </CommandList>
                     </Command>
                   </SheetDescription>
-                  <div className="absolute bottom-2 ">
-                    <span className="text-slate-500">ver2.10.2</span>
+                  <div className="absolute bottom-2 w-[90%] flex justify-between text-gray-500">
+                    <div>디공프린터</div>
+                    <div className="flex items-center mt-1 space-x-3 ">
+                      <Link
+                        href="https://www.gtec.ac.kr/landing/02/index.html"
+                        className="text-gray-500 dark:text-gray-300 transition-colors duration-300 hover:text-deep-purple-accent-400"
+                        target="_blank"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          className="lucide lucide-home text-gray-500"
+                        >
+                          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                          <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                      </Link>
+                      <Link
+                        href="https://www.youtube.com/watch?v=klda9qdGDVI"
+                        className="text-gray-500 dark:text-gray-300 transition-colors duration-300 hover:text-deep-purple-accent-400"
+                        target="_blank"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="28"
+                          height="28"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          className="lucide lucide-home text-gray-500"
+                        >
+                          <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+                          <path d="m10 15 5-3-5-3z" />
+                        </svg>
+                      </Link>
+                      <Link
+                        href="https://pf.kakao.com/_xkAxbUC"
+                        className="text-gray-500 dark:text-gray-300 transition-colors duration-300 hover:text-deep-purple-accent-400"
+                        target="_blank"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          className="lucide lucide-home text-gray-500"
+                        >
+                          <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
+                        </svg>
+                      </Link>
+                    </div>
                   </div>
                 </SheetHeader>
               </SheetContent>
