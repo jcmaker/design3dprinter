@@ -4,10 +4,6 @@
 디자인공학과 3D 프린터 예약 및 이용 현황 정보 제공 사이트
 
 
-### 링크
-
-[https://design3dprinter.vercel.app](https://design3dprinter.vercel.app)
-
 
 ## 스크린샷
 
